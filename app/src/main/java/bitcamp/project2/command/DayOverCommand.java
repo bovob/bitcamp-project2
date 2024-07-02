@@ -26,7 +26,7 @@ public class DayOverCommand {
         //toDoList 초기화
         LocalDate date = toDoList.getDate();
         LocalDate tomorrow = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
-        tomorrow = tomorrow.plusDays(ToDoList.getNextSize());
+        tomorrow = tomorrow.plusDays(1);
         System.out.println(tomorrow);
         System.out.println(date);
         ToDoList newtoDoList = new ToDoList(tomorrow);
