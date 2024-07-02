@@ -6,7 +6,7 @@ import bitcamp.project2.util.ArrayList;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class App {
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
@@ -15,13 +15,13 @@ public class App {
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
       {"주별조회"}};// 업적조회
   static Items items = new Items();
-  public ToDoList toDoList = new ToDoList(new Date());
+  public ToDoList toDoList = new ToDoList(LocalDate.now());
   public ArrayList arrList = new ArrayList();
-  public CompleteCommand completeCommand = new CompleteCommand(toDoList, items);
+  public CompleteCommand completeCommand = new CompleteCommand(items);
   public ItemCommand itemCommand = new ItemCommand(toDoList, items);
   public ShopCommand shopCommand = new ShopCommand(items);
   public ViewCommand viewCommand = new ViewCommand(toDoList, arrList);
-  public DayOverCommand dayOverCommand = new DayOverCommand(toDoList, arrList);
+  public DayOverCommand dayOverCommand = new DayOverCommand(arrList);
 
 
   public static void main(String[] args) {
@@ -106,7 +106,7 @@ public class App {
         } else if (menuTitle.equals("종료")) {
           break;
         } else if (menuTitle.equals("일과종료")) {
-          dayOverCommand.excuteDayOverCommand();
+          toDoList = dayOverCommand.excuteDayOverCommand(toDoList);
         } else {
           processSubMenu(menuTitle, subMenus[menuNo - 1]);
         }
@@ -136,7 +136,7 @@ public class App {
         } else {
           switch (menuTitle) {
             case "과업완료하기":
-              completeCommand.excuteCompleteCommand(subMenuTitle);
+              completeCommand.excuteCompleteCommand(subMenuTitle, toDoList);
               break;
             case "아이템사용":
               itemCommand.executeItemCommand(subMenuTitle);
