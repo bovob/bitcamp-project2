@@ -4,15 +4,19 @@ import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.util.ArrayList;
 import bitcamp.project2.vo.ToDoList;
 
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DayOverCommand {
   public ToDoList toDoList;
-  public ArrayList arr = new ArrayList();
+  public ArrayList arr;
 
-  public DayOverCommand(ToDoList toDoList) {
+  public DayOverCommand() {
+  }
+
+  public DayOverCommand(ToDoList toDoList, ArrayList arr) {
     this.toDoList = toDoList;
+    this.arr = arr;
   }
 
   public void excuteDayOverCommand() {
@@ -20,15 +24,17 @@ public class DayOverCommand {
       String command = Prompt.input("하루일과를 종료 하시겠습니까?(Y/N)");
       if (command.equalsIgnoreCase("Y")) {
         //ArrayList 추가
+        ToDoList newToDoList = new ToDoList();
+        newToDoList.setDate(Calendar.getInstance().getTime());
         arr.add(toDoList);
         //toDoList 초기화
         Date today = toDoList.getDate();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        java.util.Date nextDate = calendar.getTime();
-        Date tomorrow = new Date(nextDate.getTime());
-        toDoList.setDate(tomorrow);
+        Calendar originalCalendar = Calendar.getInstance();
+        Calendar clonedCalendar = (Calendar) originalCalendar.clone();
+        clonedCalendar.setTime(today);
+        clonedCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date tomorrow = clonedCalendar.getTime();
+        toDoList.setDate(new Date(tomorrow.getTime()));
         toDoList.setLate(false);
         toDoList.setSleep(false);
         toDoList.setStudy(false);
