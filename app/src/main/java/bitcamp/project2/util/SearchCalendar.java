@@ -2,21 +2,13 @@ package bitcamp.project2.util;
 
 import java.util.Calendar;
 
-public class CalendarExample {
-  public static void main(String[] args) {
-    int year = 2024;
-    int month = 7; // 7월 (Calendar 클래스는 0부터 시작하므로 7은 8월)
-    int day = 15; // 특정 날짜
-
-    printWeekCalendar(year, month, day);
-  }
-
-  public static void printWeekCalendar(int year, int month, int day) {
+public class SearchCalendar {
+  public static void printWeekCalendar(Calendar calendar) {
     // Calendar 인스턴스를 생성하고 연도, 월, 날짜를 설정
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.YEAR, year);
-    calendar.set(Calendar.MONTH, month - 1); // Calendar.MONTH는 0부터 시작
-    calendar.set(Calendar.DAY_OF_MONTH, day);
+    //    Calendar calendar = Calendar.getInstance();
+    //    calendar.set(Calendar.YEAR, year);
+    //    calendar.set(Calendar.MONTH, month); // Calendar.MONTH는 0부터 시작
+    //    calendar.set(Calendar.DAY_OF_MONTH, day);
 
     // 해당 날짜가 포함된 주의 첫 번째 날(일요일) 계산
     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -26,7 +18,7 @@ public class CalendarExample {
     int startYear = calendar.get(Calendar.YEAR);
     int startMonth = calendar.get(Calendar.MONTH);
 
-    System.out.println(year + "년 " + month + "월 " + day + "일이 포함된 주");
+    //    System.out.println(year + "년 " + month + "월 " + day + "일이 포함된 주");
     System.out.println("일 월 화 수 목 금 토");
 
     // 첫 번째 줄의 빈칸 (첫 번째 날이 이전 월에 속할 경우)

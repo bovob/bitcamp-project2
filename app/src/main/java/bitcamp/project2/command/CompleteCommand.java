@@ -34,6 +34,7 @@ public class CompleteCommand {
       toDoList.setLate(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
       System.out.println("골드를 얻었습니다.");
+      //골드 메소드 추가
     }
   }
 
@@ -41,20 +42,19 @@ public class CompleteCommand {
     if (toDoList.isSleep()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
-      toDoList.setLate(true);
+      toDoList.setSleep(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      System.out.println("골드를 얻었습니다.");
     }
   }
-
 
   void completeStudy(String subTitle) {
     if (toDoList.isStudy()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
-      toDoList.setLate(true);
+      toDoList.setStudy(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      System.out.println("골드를 얻었습니다.");
     }
   }
 
@@ -62,9 +62,9 @@ public class CompleteCommand {
     if (toDoList.isNight()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
-      toDoList.setLate(true);
+      toDoList.setNight(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      System.out.println("골드를 얻었습니다.");
     }
   }
 }

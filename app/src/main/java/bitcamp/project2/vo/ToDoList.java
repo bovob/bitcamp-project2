@@ -1,6 +1,6 @@
 package bitcamp.project2.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ToDoList {
   private Date date;

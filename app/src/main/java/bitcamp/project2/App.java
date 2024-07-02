@@ -2,7 +2,9 @@ package bitcamp.project2;
 
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.command.CompleteCommand;
+import bitcamp.project2.command.DayOverCommand;
 import bitcamp.project2.command.Schedule;
+import bitcamp.project2.command.ViewCommand;
 import bitcamp.project2.vo.ToDoList;
 
 import java.sql.Date;
@@ -10,10 +12,12 @@ import java.util.Calendar;
 
 public class App {
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
-  static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, {}, {}, {}};
+  static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, {}, {}, {"주별조회"}};
   static Schedule schedule = new Schedule();
   static ToDoList toDoList = new ToDoList(getToday());
   public CompleteCommand completeCommand = new CompleteCommand(toDoList);
+  public DayOverCommand dayOverCommand = new DayOverCommand(toDoList);
+  public ViewCommand viewCommand = new ViewCommand(toDoList);
 
   public static void main(String[] args) {
     App app = new App();
@@ -67,7 +71,7 @@ public class App {
       sum += 1;
     if (toDoList.isLate())
       sum += 1;
-    return sum / 4;
+    return sum / 4 * 100;
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
@@ -102,6 +106,8 @@ public class App {
           System.out.println("유효한 메뉴 번호가 아닙니다.");
         } else if (menuTitle.equals("종료")) {
           break;
+        } else if (menuTitle.equals("일과종료")) {
+          dayOverCommand.excuteDayOverCommand();
         } else {
           processSubMenu(menuTitle, subMenus[menuNo - 1]);
         }
@@ -140,10 +146,7 @@ public class App {
               schedule.executeSceduleCommand();
               break;
             case "업적조회":
-              schedule.executeSceduleCommand();
-              break;
-            case "일괄종료":
-              schedule.executeSceduleCommand();
+              viewCommand.excuteViewCommand(subMenuTitle);
               break;
           }
         }
