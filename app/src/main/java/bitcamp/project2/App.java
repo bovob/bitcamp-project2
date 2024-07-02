@@ -1,26 +1,50 @@
 package bitcamp.project2;
 
 import bitcamp.project2.Prompt.Prompt;
+import bitcamp.project2.command.CompleteCommand;
 import bitcamp.project2.command.Schedule;
+import bitcamp.project2.vo.ToDoList;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 public class App {
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
-  static String[][] subMenus = {{}, {}, {}, {}};
-  private final Schedule schedule = new Schedule();
+  static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, {}, {}, {}};
+  static Schedule schedule = new Schedule();
+  static ToDoList toDoList = new ToDoList(getToday());
+  public CompleteCommand completeCommand = new CompleteCommand(toDoList);
 
   public static void main(String[] args) {
     App app = new App();
     app.execute();
   }
 
+  static Date getToday() {
+    Calendar calendar = Calendar.getInstance();
+    java.util.Date currentDate = calendar.getTime();
+    return new Date(currentDate.getTime());
+  }
+
   static void printMainMenu() {
     String boldAnsi = "\033[1m";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
-    String appTitle = "        [To Do List]";
+    String appTitle = "      [스파르타 전사키우기]";
     String line = "----------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+    System.out.println("노 지 각:  " + toDoList.isLate());
+    System.out.println("노 졸 음:  " + toDoList.isSleep());
+    System.out.println("복    습:  " + toDoList.isStudy());
+    System.out.println("야    자:  " + toDoList.isNight());
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(toDoList.getDate());
+    System.out.println("Today : " + getPercent(toDoList) + "%");
+    System.out.println("Total : " + getPercent(toDoList) + "%");
+    System.out.println(boldAnsi + line + resetAnsi);
 
     // 오늘 할일 메소드 출력
     for (int i = 0; i < mainMenus.length; i++) {
@@ -31,6 +55,19 @@ public class App {
       }
     }
     System.out.println(boldAnsi + line + resetAnsi);
+  }
+
+  static float getPercent(ToDoList toDoList) {
+    float sum = 0;
+    if (toDoList.isSleep())
+      sum += 1;
+    if (toDoList.isStudy())
+      sum += 1;
+    if (toDoList.isNight())
+      sum += 1;
+    if (toDoList.isLate())
+      sum += 1;
+    return sum / 4;
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
@@ -51,8 +88,8 @@ public class App {
 
   void execute() {
     String command;
-    printMainMenu();
     while (true) {
+      printMainMenu();
       try {
         command = Prompt.input("메인> ");
         if (command.equals("menu")) {
@@ -65,6 +102,8 @@ public class App {
           System.out.println("유효한 메뉴 번호가 아닙니다.");
         } else if (menuTitle.equals("종료")) {
           break;
+        } else {
+          processSubMenu(menuTitle, subMenus[menuNo - 1]);
         }
       } catch (NumberFormatException ex) {
         System.out.println("숫자로 메뉴 번호를 입력하세요.");
@@ -91,16 +130,19 @@ public class App {
           System.out.println("유효한 메뉴 번호가 아닙니다.");
         } else {
           switch (menuTitle) {
-            case "일정등록":
+            case "과업완료하기":
+              completeCommand.excuteCompleteCommand(subMenuTitle);
+              break;
+            case "아이템사용":
               schedule.executeSceduleCommand();
               break;
-            case "상세조회":
+            case "상점가기":
               schedule.executeSceduleCommand();
               break;
-            case "일정변경":
+            case "업적조회":
               schedule.executeSceduleCommand();
               break;
-            case "일정삭제":
+            case "일괄종료":
               schedule.executeSceduleCommand();
               break;
           }
@@ -110,5 +152,6 @@ public class App {
       }
     }
   }
+
 
 }

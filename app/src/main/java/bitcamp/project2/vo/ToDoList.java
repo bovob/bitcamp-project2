@@ -9,6 +9,13 @@ public class ToDoList {
   private boolean study;
   private boolean night;
 
+  public ToDoList() {
+  }
+
+  public ToDoList(Date date) {
+    this.date = date;
+  }
+
   public Date getDate() {
     return date;
   }
