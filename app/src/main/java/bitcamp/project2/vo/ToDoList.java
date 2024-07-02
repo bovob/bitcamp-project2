@@ -3,58 +3,49 @@ package bitcamp.project2.vo;
 import java.util.Date;
 
 public class ToDoList {
-  private String title;
-  private String description;
-  private Date dueDate;
-  private int priority;
-  private String tag;
-  private boolean status;
+  private Date date;
+  private boolean late;
+  private boolean sleep;
+  private boolean study;
+  private boolean night;
 
-  public String getTitle() {
-    return title;
+  public Date getDate() {
+    return date;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
-  public String getDescription() {
-    return description;
+  public boolean isLate() {
+    return late;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setLate(boolean late) {
+    this.late = late;
   }
 
-  public Date getDueDate() {
-    return dueDate;
+  public boolean isSleep() {
+    return sleep;
   }
 
-  public void setDueDate(Date dueDate) {
-    this.dueDate = dueDate;
+  public void setSleep(boolean sleep) {
+    this.sleep = sleep;
   }
 
-  public int getPriority() {
-    return priority;
+  public boolean isStudy() {
+    return study;
   }
 
-  public void setPriority(int priority) {
-    this.priority = priority;
+  public void setStudy(boolean study) {
+    this.study = study;
   }
 
-  public String getTag() {
-    return tag;
+  public boolean isNight() {
+    return night;
   }
 
-  public void setTag(String tag) {
-    this.tag = tag;
-  }
-
-  public boolean isStatus() {
-    return status;
-  }
-
-  public void setStatus(boolean status) {
-    this.status = status;
+  public void setNight(boolean night) {
+    this.night = night;
   }
 }

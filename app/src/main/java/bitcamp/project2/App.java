@@ -4,7 +4,7 @@ import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.command.Schedule;
 
 public class App {
-  static String[] mainMenus = new String[] {"일정등록", "상세조회", "일정변경", "일정삭제", "종료"};
+  static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
   static String[][] subMenus = {{}, {}, {}, {}};
   private final Schedule schedule = new Schedule();
 
