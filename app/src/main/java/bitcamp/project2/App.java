@@ -2,7 +2,10 @@ package bitcamp.project2;
 
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.command.CompleteCommand;
+import bitcamp.project2.command.ItemCommand;
 import bitcamp.project2.command.Schedule;
+import bitcamp.project2.command.ShopCommand;
+import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 import java.sql.Date;
@@ -10,10 +13,19 @@ import java.util.Calendar;
 
 public class App {
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
-  static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, {}, {}, {}};
+  static String[][] subMenus = {
+      {"노지각", "노졸음", "복습", "야자"}, // 과업완료하기 
+      {"지각방지", "졸음방지","복습했다치기","야자출튀"}, // 아이템사용 
+      {"지각방지", "졸음방지","복습했다치기","야자출튀"}, // 상점가기
+      {}};// 업적조회
   static Schedule schedule = new Schedule();
-  static ToDoList toDoList = new ToDoList(getToday());
-  public CompleteCommand completeCommand = new CompleteCommand(toDoList);
+  public static ToDoList toDoList = new ToDoList(getToday());
+  public CompleteCommand completeCommand = new CompleteCommand(toDoList, items);
+
+  static Items items = new Items();
+  public ItemCommand itemCommand = new ItemCommand(toDoList, items);
+  public ShopCommand shopCommand = new ShopCommand(items);
+
 
   public static void main(String[] args) {
     App app = new App();
@@ -134,10 +146,10 @@ public class App {
               completeCommand.excuteCompleteCommand(subMenuTitle);
               break;
             case "아이템사용":
-              schedule.executeSceduleCommand();
+              itemCommand.executeItemCommand(subMenuTitle);
               break;
             case "상점가기":
-              schedule.executeSceduleCommand();
+              shopCommand.executeShopCommand(subMenuTitle);
               break;
             case "업적조회":
               schedule.executeSceduleCommand();

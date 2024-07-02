@@ -1,12 +1,15 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 public class CompleteCommand {
   public ToDoList toDoList;
+  private Items items;
 
-  public CompleteCommand(ToDoList toDoList) {
+  public CompleteCommand(ToDoList toDoList, Items items) {
     this.toDoList = toDoList;
+    this.items = items;
   }
 
   public void excuteCompleteCommand(String subTitle) {
@@ -33,7 +36,8 @@ public class CompleteCommand {
     } else {
       toDoList.setLate(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.");
+      items.incrementGold(10);
+      System.out.println("10 골드를 얻었습니다.");
     }
   }
 
@@ -43,7 +47,8 @@ public class CompleteCommand {
     } else {
       toDoList.setLate(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      items.incrementGold(20);
+      System.out.println("20 골드를 얻었습니다.");
     }
   }
 
@@ -54,7 +59,8 @@ public class CompleteCommand {
     } else {
       toDoList.setLate(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      items.incrementGold(50);
+      System.out.println("50 골드를 얻었습니다.");
     }
   }
 
@@ -64,7 +70,8 @@ public class CompleteCommand {
     } else {
       toDoList.setLate(true);
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
-      System.out.println("골드를 얻었습니다.\n");
+      items.incrementGold(100);
+      System.out.println("100 골드를 얻었습니다.");
     }
   }
 }
