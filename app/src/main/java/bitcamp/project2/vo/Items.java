@@ -8,7 +8,7 @@ public class Items {
   private int sleepCoupon;
   private int studyCoupon;
   private int nightCoupon;
-  private int gold;
+  private int gold=500;
 
   public int getLateCoupon() {
     return lateCoupon;
