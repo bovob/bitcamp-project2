@@ -9,6 +9,10 @@ public class ShopCommand {
         this.items = items;
     }
 
+    String blueAnsi = "\033[94m";
+    String boldAnsi = "\033[1m";
+    String resetAnsi = "\033[0m";
+
     public static int priceLateCoupon = 500;
     public static int priceSleepCoupon = 1000;
     public static int priceStudyCoupon = 100000000;
@@ -32,45 +36,49 @@ public class ShopCommand {
     }
 
     private void buyLateCoupon(String subTitle) {
+        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceLateCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
             items.incrementCoupon(subTitle);
             items.decrementGold(priceLateCoupon);
-            System.out.printf("[%s]를 구매했습니다.\n", subTitle);
+            System.out.printf("[%s]를 구매했습니다.\n", ansiSubTitle);
         }
         printItemList();
     }
 
     private void buySleepCoupon(String subTitle) {
+        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceSleepCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
             items.incrementCoupon(subTitle);
             items.decrementGold(priceSleepCoupon);
-            System.out.printf("[%s]를 구매했습니다.\n", subTitle);
+            System.out.printf("[%s]를 구매했습니다.\n", ansiSubTitle);
         }
         printItemList();
     }
 
     private void buyStudyCoupon(String subTitle) {
+        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceStudyCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
             items.incrementCoupon(subTitle);
             items.decrementGold(priceStudyCoupon);
-            System.out.printf("[%s]를 구매했습니다.\n", subTitle);
+            System.out.printf("[%s]를 구매했습니다.\n", ansiSubTitle);
         }
         printItemList();
     }
 
     private void buyNightCoupon(String subTitle) {
+        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceNightCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
             items.incrementCoupon(subTitle);
             items.decrementGold(priceNightCoupon);
-            System.out.printf("[%s]를 구매했습니다.\n", subTitle);
+            System.out.printf("[%s]를 구매했습니다.\n", ansiSubTitle);
         }
         printItemList();
     }
@@ -84,18 +92,12 @@ public class ShopCommand {
     }
 
     public void printItemInventory() {
-        System.out.println("[현재 아이템 리스트]");
-        System.out.printf("1.지각방지.......%d 개\n", items.getLateCoupon());
-        System.out.printf("2.졸음방지.......%d 개\n", items.getSleepCoupon());
-        System.out.printf("3.복습했다치기...%d 개\n", items.getStudyCoupon());
-        System.out.printf("4.야자출튀.......%d 개\n", items.getNightCoupon());
-        printGold();
-    }
-
-    public void printGold(){
-        String line = "----------------------------------";
-        System.out.println(line);
-        System.out.printf("현재 보유골드는 [ %d ] 입니다. \n", items.getGold());
+        System.out.println("[아이템 리스트]");
+        System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
+        System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
+        System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
+        System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
+        ItemCommand.printGold();
     }
 
     public void printItemList(){

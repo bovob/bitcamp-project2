@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class App {
   public static ArrayList arrList = new ArrayList();
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "포기하기"};
-  static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
-      {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
-      {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
-      {"주별조회", "일별조회"}};// 업적조회
+  public static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
+                                       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
+                                       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
+                                       {"주별조회", "일별조회"}};// 업적조회
   static Items items = new Items();
   public ToDoList toDoList = new ToDoList(LocalDate.now());
   public CompleteCommand completeCommand = new CompleteCommand(items);
@@ -49,34 +49,6 @@ public class App {
 
   static String getMenuTitle(int menuNo, String[] menus) {
     return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
-  }
-
-  static void printItemMenus(String menuTitle, String[] menus) {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-    String appTitle = "            [아이템]";
-    String line = "----------------------------------";
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
-    System.out.println(boldAnsi + line + resetAnsi);
-    if (menuTitle.equals("상점가기")) {
-      System.out.printf("1.지각방지.......%6d 골드\n", ShopCommand.priceLateCoupon);
-      System.out.printf("2.졸음방지.......%6d 골드\n", ShopCommand.priceSleepCoupon);
-      System.out.printf("3.복습했다치기...%6d 골드\n", ShopCommand.priceStudyCoupon);
-      System.out.printf("4.야자출튀.......%6d 골드\n", ShopCommand.priceNightCoupon);
-      System.out.println(boldAnsi + line + resetAnsi);
-    }
-    System.out.println("      [아이템 리스트]");
-    System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
-    System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
-    System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
-    System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
-    System.out.println(boldAnsi + line + resetAnsi);
-    printGold();
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println("9. 이전");
-    System.out.println(boldAnsi + line + resetAnsi);
   }
 
   public static void printGold() {
@@ -169,7 +141,6 @@ public class App {
               completeCommand.excuteCompleteCommand(subMenuTitle, toDoList);
               break;
             case "아이템사용":
-              itemCommand.printItemList();
               itemCommand.executeItemCommand(subMenuTitle);
               break;
             case "상점가기":
