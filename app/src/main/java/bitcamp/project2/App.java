@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class App {
   public static ArrayList arrList = new ArrayList();
-  static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
+  static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "포기하기"};
   static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
@@ -20,7 +20,7 @@ public class App {
   public CompleteCommand completeCommand = new CompleteCommand(items);
   public ItemCommand itemCommand = new ItemCommand(toDoList, items);
   public ShopCommand shopCommand = new ShopCommand(items);
-  public ViewCommand viewCommand = new ViewCommand(toDoList, arrList);
+  public ViewCommand viewCommand = new ViewCommand(arrList);
   public DayOverCommand dayOverCommand = new DayOverCommand(arrList);
 
 
@@ -29,16 +29,6 @@ public class App {
     test.addTest(arrList);
     App app = new App();
     app.execute();
-  }
-
-  static void testCase(ArrayList arrayList) {
-    ToDoList toDoList = new ToDoList();
-    toDoList.setLate(true);
-    toDoList.setSleep(true);
-    toDoList.setStudy(true);
-    toDoList.setNight(true);
-    toDoList.setTodayComplete();
-    arrayList.add(toDoList);
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
@@ -61,7 +51,9 @@ public class App {
     String boldAnsi = "\033[1m";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
-    String appTitle = "      [스파르타 전사키우기]";
+    String blueAnsi = "\033[94m";
+
+    String appTitle = "      [스파르타 공부법]";
     String line = "----------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
@@ -73,14 +65,16 @@ public class App {
     System.out.println("야    자:  " + toDoList.isNight());
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(toDoList.getDate());
-    System.out.println("Today : " + toDoList.getTodayComplete() + "%");
+    System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
+    printGraph(toDoList.getTodayComplete(), "today");
     toDoList.setTotalComplete(arrList.getAverage());
-    System.out.println("Total : " + toDoList.getTotalComplete() + "%");
+    System.out.printf("Today : %4.1f%%  ", toDoList.getTotalComplete());
+    printGraph(toDoList.getTotalComplete(), "total");
     System.out.println(boldAnsi + line + resetAnsi);
 
     // 오늘 할일 메소드 출력
     for (int i = 0; i < mainMenus.length; i++) {
-      if (mainMenus[i].equals("종료")) {
+      if (mainMenus[i].equals("포기하기")) {
         System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), mainMenus[i], resetAnsi);
       } else {
         System.out.printf("%d. %s\n", (i + 1), mainMenus[i]);
@@ -146,7 +140,7 @@ public class App {
               shopCommand.executeShopCommand(subMenuTitle);
               break;
             case "업적조회":
-              viewCommand.excuteViewCommand(subMenuTitle);
+              viewCommand.excuteViewCommand(subMenuTitle, toDoList);
               break;
           }
         }
@@ -156,4 +150,28 @@ public class App {
     }
   }
 
+  void printGraph(float total, String day) {
+    String dotCode = "\u25AE";
+    String redAnsi = "\033[31m";
+    String resetAnsi = "\033[0m";
+    String blueAnsi = "\033[94m";
+
+    int barLength = 18;
+    double ratio = total == 0 ? 0 : total / 100.0f;
+    int filledLength = (int) (ratio * barLength);
+
+    switch (day) {
+      case "today":
+        for (int i = 0; i < filledLength; i++) {
+          System.out.printf("%s%s%s", blueAnsi, dotCode, resetAnsi);
+        }
+        break;
+      case "total":
+        for (int i = 0; i < filledLength; i++) {
+          System.out.printf("%s%s%s", redAnsi, dotCode, resetAnsi);
+        }
+        break;
+    }
+    System.out.println();
+  }
 }
