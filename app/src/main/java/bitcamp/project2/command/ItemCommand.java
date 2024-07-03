@@ -16,13 +16,13 @@ public class ItemCommand {
     }
 
     // 아이템 리스트 받기
-    public void makeItemMenuList(){
-        String[] itemMenuList = new String[App.subMenus[1].length];
-
-        for(int i = 0; i < App.subMenus[1].length; i++){
-            itemMenuList[i] = App.subMenus[1][i];
-        }
-    }
+    //public void makeItemMenuList(){
+    //    String[] itemMenuList = new String[App.subMenus[1].length];
+    //
+    //    for(int i = 0; i < App.subMenus[1].length; i++){
+    //        itemMenuList[i] = App.subMenus[1][i];
+    //    }
+    //}
 
     // 출력용 Line
     public static String line = "----------------------------------";
@@ -57,7 +57,7 @@ public class ItemCommand {
 
     // 메뉴실행
     public void executeItemCommand(String subTitle) {
-        makeItemMenuList();
+        //makeItemMenuList();
 
         switch (subTitle){
             case "지각방지":
