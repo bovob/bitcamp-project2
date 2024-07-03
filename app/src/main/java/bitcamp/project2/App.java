@@ -30,11 +30,15 @@ public class App {
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
-    System.out.printf("[%s]\n", menuTitle);
-    for (int i = 0; i < menus.length; i++) {
-      System.out.printf("%d. %s\n", i + 1, menus[i]);
+    if (menuTitle.equals("아이템사용")|menuTitle.equals("상점가기"))
+    {
+      printItemMenus(menuTitle, menus);
+    } else {
+      System.out.printf("[%s]\n", menuTitle);
+      for (int i = 0; i < menus.length; i++) {
+        System.out.printf("%d. %s\n", i + 1, menus[i]);
+      }System.out.println("9. 이전");
     }
-    System.out.println("9. 이전");
   }
 
   static boolean isValidateMenu(int menuNo, String[] menus) {
@@ -75,6 +79,40 @@ public class App {
       }
     }
     System.out.println(boldAnsi + line + resetAnsi);
+  }
+
+
+  static void printItemMenus(String menuTitle, String[] menus){
+    String boldAnsi = "\033[1m";
+    String redAnsi = "\033[31m";
+    String resetAnsi = "\033[0m";
+    String appTitle = "            [아이템]";
+    String line = "----------------------------------";
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + appTitle + resetAnsi);
+    System.out.println(boldAnsi + line + resetAnsi);
+    if (menuTitle.equals("상점가기"))
+    {
+      System.out.printf("1.지각방지.......%6d 골드\n", ShopCommand.priceLateCoupon);
+      System.out.printf("2.졸음방지.......%6d 골드\n", ShopCommand.priceSleepCoupon);
+      System.out.printf("3.복습했다치기...%6d 골드\n", ShopCommand.priceStudyCoupon);
+      System.out.printf("4.야자출튀.......%6d 골드\n", ShopCommand.priceNightCoupon);
+      System.out.println(boldAnsi + line + resetAnsi);
+    }
+    System.out.println("      [아이템 리스트]");
+    System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
+    System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
+    System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
+    System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
+    System.out.println(boldAnsi + line + resetAnsi);
+    printGold();
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println("9. 이전");
+    System.out.println(boldAnsi + line + resetAnsi);
+  }
+
+  public static void printGold(){
+    System.out.printf("현재 보유골드는 [ %d ] 입니다. \n", items.getGold());
   }
 
   void execute() {
@@ -142,6 +180,9 @@ public class App {
         System.out.println("숫자로 메뉴 번호를 입력하세요.");
       }
     }
+
   }
 
 }
+
+
