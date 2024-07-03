@@ -1,9 +1,10 @@
 package bitcamp.project2.vo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class ToDoList {
-  private Date date;
+  private static int size;
+  private LocalDate date;
   private boolean late;
   private boolean sleep;
   private boolean study;
@@ -12,15 +13,19 @@ public class ToDoList {
   public ToDoList() {
   }
 
-  public ToDoList(Date date) {
+  public ToDoList(LocalDate date) {
     this.date = date;
   }
 
-  public Date getDate() {
+  public static int getNextSize() {
+    return ++size;
+  }
+
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 

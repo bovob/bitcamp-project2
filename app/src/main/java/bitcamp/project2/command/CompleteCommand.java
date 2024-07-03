@@ -4,33 +4,33 @@ import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 public class CompleteCommand {
+  private final Items items;
   public ToDoList toDoList;
-  private Items items;
 
-  public CompleteCommand(ToDoList toDoList, Items items) {
-    this.toDoList = toDoList;
+  public CompleteCommand(Items items) {
     this.items = items;
+
   }
 
-  public void excuteCompleteCommand(String subTitle) {
+  public void excuteCompleteCommand(String subTitle, ToDoList toDoList) {
     //    System.out.printf("[%s]\n", subTitle);
     switch (subTitle) {
       case "노지각":
-        completeLate(subTitle);
+        completeLate(subTitle, toDoList);
         break;
       case "노졸음":
-        completeSleep(subTitle);
+        completeSleep(subTitle, toDoList);
         break;
       case "복습":
-        completeStudy(subTitle);
+        completeStudy(subTitle, toDoList);
         break;
       case "야자":
-        completeNight(subTitle);
+        completeNight(subTitle, toDoList);
         break;
     }
   }
 
-  void completeLate(String subTitle) {
+  void completeLate(String subTitle, ToDoList toDoList) {
     if (toDoList.isLate()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
@@ -41,7 +41,7 @@ public class CompleteCommand {
     }
   }
 
-  void completeSleep(String subTitle) {
+  void completeSleep(String subTitle, ToDoList toDoList) {
     if (toDoList.isSleep()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
@@ -53,7 +53,7 @@ public class CompleteCommand {
   }
 
 
-  void completeStudy(String subTitle) {
+  void completeStudy(String subTitle, ToDoList toDoList) {
     if (toDoList.isStudy()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {
@@ -64,7 +64,7 @@ public class CompleteCommand {
     }
   }
 
-  void completeNight(String subTitle) {
+  void completeNight(String subTitle, ToDoList toDoList) {
     if (toDoList.isNight()) {
       System.out.printf("[%s]은(는) 이미 완료 했습니다.\n", subTitle);
     } else {

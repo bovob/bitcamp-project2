@@ -3,7 +3,6 @@ package bitcamp.project2.command;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
-
 public class ItemCommand {
 
     private ToDoList toDoList;

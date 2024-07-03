@@ -1,6 +1,9 @@
 package bitcamp.project2.util;
 
+import bitcamp.project2.vo.ToDoList;
+
 import java.util.Arrays;
+import java.util.Date;
 
 public class ArrayList {
 
@@ -62,5 +65,19 @@ public class ArrayList {
 
   public boolean contains(Object obj) {
     return indexOf(obj) != -1;
+  }
+
+  public int size() {
+    return size;
+  }
+
+  public Object getToDoList(Date date) {
+    for (Object obj : this.toArray()) {
+      ToDoList toDoList = (ToDoList) obj;
+      if (toDoList.getDate().equals(date)) {
+        return obj;
+      }
+    }
+    return null;
   }
 }
