@@ -127,6 +127,7 @@ public class App {
               completeCommand.excuteCompleteCommand(subMenuTitle, toDoList);
               break;
             case "아이템사용":
+              itemCommand.printItemList();
               itemCommand.executeItemCommand(subMenuTitle);
               break;
             case "상점가기":
