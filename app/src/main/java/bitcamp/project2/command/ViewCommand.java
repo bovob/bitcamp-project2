@@ -32,22 +32,20 @@ public class ViewCommand {
         System.out.printf("   %1$tm-%1$td   |", week[i]);
       }
       System.out.println();
-      for (Object obj : arr.toArray()) {
-        for (int i = 0; i < week.length; i++) {
-          ToDoList toDDo = (ToDoList) obj;
-          System.out.println(toDDo.getDate());
-          //          if (week[i].equals(toDDo.getDate())) {
-          //            System.out.print("    yes    |");
-          //            break;
-          //            //            System.out.printf("   %1$tm-%1$td   |", toDDo.getDate());
-          //          } else {
-          //            System.out.print("     no    |");
-          //          }
+      for (int i = 0; i < week.length; i++) {
+        Object obj = arr.getToDoList(week[i]);
+        ToDoList toDDo = (ToDoList) obj;
+        if (toDDo != null) {
+          System.out.print("    yes    |");
+        } else {
+          System.out.print("     no    |");
         }
       }
       System.out.println();
     }
   }
+  //            System.out.print("    yes    |");
+  //            System.out.print("     no    |");
 
   private LocalDate[] getWeek() {
     LocalDate[] week = new LocalDate[7];
