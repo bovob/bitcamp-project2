@@ -9,6 +9,7 @@ import bitcamp.project2.vo.ToDoList;
 import java.time.LocalDate;
 
 public class App {
+  public static ArrayList arrList = new ArrayList();
   static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "종료"};
   static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
@@ -16,7 +17,6 @@ public class App {
       {"주별조회"}};// 업적조회
   static Items items = new Items();
   public ToDoList toDoList = new ToDoList(LocalDate.now());
-  public ArrayList arrList = new ArrayList();
   public CompleteCommand completeCommand = new CompleteCommand(items);
   public ItemCommand itemCommand = new ItemCommand(toDoList, items);
   public ShopCommand shopCommand = new ShopCommand(items);
@@ -25,8 +25,20 @@ public class App {
 
 
   public static void main(String[] args) {
+    Test test = new Test();
+    test.addTest(arrList);
     App app = new App();
     app.execute();
+  }
+
+  static void testCase(ArrayList arrayList) {
+    ToDoList toDoList = new ToDoList();
+    toDoList.setLate(true);
+    toDoList.setSleep(true);
+    toDoList.setStudy(true);
+    toDoList.setNight(true);
+    toDoList.setTodayComplete();
+    arrayList.add(toDoList);
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
