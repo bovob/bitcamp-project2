@@ -112,10 +112,10 @@ public class ItemCommand {
 
     public void printItemInventory() {
         System.out.println("[현재 아이템 리스트]");
-        System.out.printf("지각방지.......%d 개\n", items.getLateCoupon());
-        System.out.printf("졸음방지.......%d 개\n", items.getSleepCoupon());
-        System.out.printf("복습했다치기...%d 개\n", items.getStudyCoupon());
-        System.out.printf("야자출튀.......%d 개\n", items.getNightCoupon());
+        System.out.printf("1.지각방지.......%d 개\n", items.getLateCoupon());
+        System.out.printf("2.졸음방지.......%d 개\n", items.getSleepCoupon());
+        System.out.printf("3.복습했다치기...%d 개\n", items.getStudyCoupon());
+        System.out.printf("4.야자출튀.......%d 개\n", items.getNightCoupon());
         printGold();
     }
 
