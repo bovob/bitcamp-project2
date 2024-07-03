@@ -35,8 +35,8 @@ public class ViewCommand {
     System.out.println(boldAnsi + line + resetAnsi);
 
     if (arr.size() != 0) {
-
       LocalDate[] week = getWeek(toDoList);
+      System.out.printf("조회 기준일 : %s\n", toDoList.getDate());
       System.out.print("| 날      짜 |");
       for (int i = 0; i < week.length; i++) {
         System.out.printf(" %1$tm-%1$td |", week[i]);
@@ -102,7 +102,6 @@ public class ViewCommand {
   private LocalDate[] getWeek(ToDoList toDoList) {
     LocalDate[] week = new LocalDate[7];
     LocalDate today = toDoList.getDate();
-    System.out.println(today);
 
     LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
     LocalDate endOfWeek = today.with(DayOfWeek.SUNDAY);

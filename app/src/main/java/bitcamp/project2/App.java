@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 public class App {
   public static ArrayList arrList = new ArrayList();
-  static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "포기하기"};
   public static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
-                                       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
-                                       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
-                                       {"주별조회", "일별조회"}};// 업적조회
+      {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
+      {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
+      {"주별조회", "일별조회"}};// 업적조회
+  static String[] mainMenus = new String[] {"과업완료하기", "아이템사용", "상점가기", "업적조회", "일과종료", "포기하기"};
   static Items items = new Items();
   public ToDoList toDoList = new ToDoList(LocalDate.now());
   public CompleteCommand completeCommand = new CompleteCommand(items);
@@ -32,14 +32,14 @@ public class App {
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
-    if (menuTitle.equals("아이템사용")|menuTitle.equals("상점가기"))
-    {
+    if (menuTitle.equals("아이템사용") | menuTitle.equals("상점가기")) {
       ItemCommand.printItemMenus(menuTitle, menus);
     } else {
       System.out.printf("[%s]\n", menuTitle);
       for (int i = 0; i < menus.length; i++) {
         System.out.printf("%d. %s\n", i + 1, menus[i]);
-      }System.out.println("9. 이전");
+      }
+      System.out.println("9. 이전");
     }
   }
 
@@ -54,30 +54,39 @@ public class App {
   public static void printGold() {
     System.out.printf("현재 보유골드는 [ %d ] 입니다. \n", items.getGold());
   }
+
   void printMainMenu() {
     String boldAnsi = "\033[1m";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
-    String appTitle = "      [스파르타 전사키우기]";
+    String blueAnsi = "\033[94m";
+
+    String appTitle = "      [스파르타 공부법]";
     String line = "----------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
-    System.out.println("노 지 각:  " + toDoList.isLate());
-    System.out.println("노 졸 음:  " + toDoList.isSleep());
-    System.out.println("복    습:  " + toDoList.isStudy());
-    System.out.println("야    자:  " + toDoList.isNight());
+    System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? "\033[94m" : "\033[31m"),
+        (toDoList.isLate() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? "\033[94m" : "\033[31m"),
+        (toDoList.isSleep() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? "\033[94m" : "\033[31m"),
+        (toDoList.isStudy() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? "\033[94m" : "\033[31m"),
+        (toDoList.isNight() ? "완료" : "실패"), "\033[0m");
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(toDoList.getDate());
-    System.out.println("Today : " + toDoList.getTodayComplete() + "%");
+    System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
+    printGraph(toDoList.getTodayComplete(), "today");
     toDoList.setTotalComplete(arrList.getAverage());
-    System.out.println("Total : " + toDoList.getTotalComplete() + "%");
+    System.out.printf("Total : %4.1f%%  ", toDoList.getTotalComplete());
+    printGraph(toDoList.getTotalComplete(), "total");
     System.out.println(boldAnsi + line + resetAnsi);
 
     // 오늘 할일 메소드 출력
     for (int i = 0; i < mainMenus.length; i++) {
-      if (mainMenus[i].equals("종료")) {
+      if (mainMenus[i].equals("포기하기")) {
         System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), mainMenus[i], resetAnsi);
       } else {
         System.out.printf("%d. %s\n", (i + 1), mainMenus[i]);
