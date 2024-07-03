@@ -1,5 +1,6 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.util.ArrayList;
 import bitcamp.project2.vo.ToDoList;
 
@@ -18,6 +19,10 @@ public class ViewCommand {
     switch (subTitle) {
       case "주별조회":
         viewWeek(toDoList);
+        break;
+
+      case "일별조회":
+        viewDay(toDoList);
         break;
     }
   }
@@ -47,6 +52,7 @@ public class ViewCommand {
           System.out.print("       |");
         }
       }
+
       System.out.println();
       System.out.print("| 누적달성률 |");
       for (int i = 0; i < week.length; i++) {
@@ -61,6 +67,35 @@ public class ViewCommand {
       System.out.println();
     }
     System.out.println(boldAnsi + line + resetAnsi);
+
+  }
+
+  private void viewDay(ToDoList toDoList) {
+    String line = "----------------------------------";
+    LocalDate findDate = Prompt.inputDate("조회일(yyyy-MM-dd)?");
+    System.out.println(line);
+    Object obj = arr.getToDoList(findDate);
+    System.out.println(line);
+    ToDoList toDo = (ToDoList) obj;
+    if (toDo != null) {
+      System.out.printf("조 회 일 : %s\n", findDate);
+      System.out.printf("%s노 지 각 :  %s%s\n", (toDo.isLate() ? "\033[94m" : "\033[31m"),
+          (toDo.isLate() ? "완료" : "실패"), "\033[0m");
+      System.out.printf("%s노 졸 음 :  %s%s\n", (toDo.isSleep() ? "\033[94m" : "\033[31m"),
+          (toDo.isSleep() ? "완료" : "실패"), "\033[0m");
+      System.out.printf("%s복    습 :  %s%s\n", (toDo.isStudy() ? "\033[94m" : "\033[31m"),
+          (toDo.isStudy() ? "완료" : "실패"), "\033[0m");
+      System.out.printf("%s야    자 :  %s%s\n", (toDo.isNight() ? "\033[94m" : "\033[31m"),
+          (toDo.isNight() ? "완료" : "실패"), "\033[0m");
+      System.out.println(line);
+      System.out.printf("Today : %4.1f%%  \n", toDo.getTodayComplete());
+      System.out.printf("Total : %4.1f%%  \n", toDo.getTotalComplete());
+
+    } else {
+      System.out.println("해당 날짜에는 공부를 안햇습니다.");
+    }
+    System.out.println(line);
+
 
   }
 

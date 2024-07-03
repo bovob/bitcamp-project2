@@ -14,7 +14,7 @@ public class App {
   static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 상점가기
-      {"주별조회"}};// 업적조회
+      {"주별조회", "일별조회"}};// 업적조회
   static Items items = new Items();
   public ToDoList toDoList = new ToDoList(LocalDate.now());
   public CompleteCommand completeCommand = new CompleteCommand(items);
@@ -32,14 +32,14 @@ public class App {
   }
 
   static void printSubMenu(String menuTitle, String[] menus) {
-    if (menuTitle.equals("아이템사용")|menuTitle.equals("상점가기"))
-    {
+    if (menuTitle.equals("아이템사용") | menuTitle.equals("상점가기")) {
       printItemMenus(menuTitle, menus);
     } else {
       System.out.printf("[%s]\n", menuTitle);
       for (int i = 0; i < menus.length; i++) {
         System.out.printf("%d. %s\n", i + 1, menus[i]);
-      }System.out.println("9. 이전");
+      }
+      System.out.println("9. 이전");
     }
   }
 
@@ -51,44 +51,7 @@ public class App {
     return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
   }
 
-  void printMainMenu() {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-    String blueAnsi = "\033[94m";
-
-    String appTitle = "      [스파르타 공부법]";
-    String line = "----------------------------------";
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
-    System.out.println("노 지 각:  " + toDoList.isLate());
-    System.out.println("노 졸 음:  " + toDoList.isSleep());
-    System.out.println("복    습:  " + toDoList.isStudy());
-    System.out.println("야    자:  " + toDoList.isNight());
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(toDoList.getDate());
-    System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
-    printGraph(toDoList.getTodayComplete(), "today");
-    toDoList.setTotalComplete(arrList.getAverage());
-    System.out.printf("Today : %4.1f%%  ", toDoList.getTotalComplete());
-    printGraph(toDoList.getTotalComplete(), "total");
-    System.out.println(boldAnsi + line + resetAnsi);
-
-    // 오늘 할일 메소드 출력
-    for (int i = 0; i < mainMenus.length; i++) {
-      if (mainMenus[i].equals("포기하기")) {
-        System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), mainMenus[i], resetAnsi);
-      } else {
-        System.out.printf("%d. %s\n", (i + 1), mainMenus[i]);
-      }
-    }
-    System.out.println(boldAnsi + line + resetAnsi);
-  }
-
-
-  static void printItemMenus(String menuTitle, String[] menus){
+  static void printItemMenus(String menuTitle, String[] menus) {
     String boldAnsi = "\033[1m";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
@@ -97,8 +60,7 @@ public class App {
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
     System.out.println(boldAnsi + line + resetAnsi);
-    if (menuTitle.equals("상점가기"))
-    {
+    if (menuTitle.equals("상점가기")) {
       System.out.printf("1.지각방지.......%6d 골드\n", ShopCommand.priceLateCoupon);
       System.out.printf("2.졸음방지.......%6d 골드\n", ShopCommand.priceSleepCoupon);
       System.out.printf("3.복습했다치기...%6d 골드\n", ShopCommand.priceStudyCoupon);
@@ -117,8 +79,48 @@ public class App {
     System.out.println(boldAnsi + line + resetAnsi);
   }
 
-  public static void printGold(){
+  public static void printGold() {
     System.out.printf("현재 보유골드는 [ %d ] 입니다. \n", items.getGold());
+  }
+
+  void printMainMenu() {
+    String boldAnsi = "\033[1m";
+    String redAnsi = "\033[31m";
+    String resetAnsi = "\033[0m";
+    String blueAnsi = "\033[94m";
+
+    String appTitle = "      [스파르타 공부법]";
+    String line = "----------------------------------";
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + appTitle + resetAnsi);
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+    System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? "\033[94m" : "\033[31m"),
+        (toDoList.isLate() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? "\033[94m" : "\033[31m"),
+        (toDoList.isSleep() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? "\033[94m" : "\033[31m"),
+        (toDoList.isStudy() ? "완료" : "실패"), "\033[0m");
+    System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? "\033[94m" : "\033[31m"),
+        (toDoList.isNight() ? "완료" : "실패"), "\033[0m");
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(toDoList.getDate());
+    System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
+    printGraph(toDoList.getTodayComplete(), "today");
+    toDoList.setTotalComplete(arrList.getAverage());
+    System.out.printf("Total : %4.1f%%  ", toDoList.getTotalComplete());
+    printGraph(toDoList.getTotalComplete(), "total");
+    System.out.println(boldAnsi + line + resetAnsi);
+
+    // 오늘 할일 메소드 출력
+    for (int i = 0; i < mainMenus.length; i++) {
+      if (mainMenus[i].equals("포기하기")) {
+        System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), mainMenus[i], resetAnsi);
+      } else {
+        System.out.printf("%d. %s\n", (i + 1), mainMenus[i]);
+      }
+    }
+    System.out.println(boldAnsi + line + resetAnsi);
   }
 
   void execute() {
@@ -126,6 +128,10 @@ public class App {
     while (true) {
       printMainMenu();
       try {
+        if (toDoList.getTotalComplete() < 20) {
+          System.out.println("Game Over 당신은 훈련수당을 받을 수 없습니다.");
+          break;
+        }
         command = Prompt.input("메인> ");
         if (command.equals("menu")) {
           printMainMenu();
@@ -135,7 +141,8 @@ public class App {
         String menuTitle = getMenuTitle(menuNo, mainMenus);
         if (menuTitle == null) {
           System.out.println("유효한 메뉴 번호가 아닙니다.");
-        } else if (menuTitle.equals("종료")) {
+        } else if (menuTitle.equals("포기하기")) {
+          System.out.println("Game Over 당신은 훈련수당을 받을 수 없습니다.");
           break;
         } else if (menuTitle.equals("일과종료")) {
           toDoList = dayOverCommand.excuteDayOverCommand(toDoList);
@@ -189,7 +196,7 @@ public class App {
 
   }
 
-  void printGraph(float total, String day) {
+  public void printGraph(float total, String day) {
     String dotCode = "\u25AE";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";

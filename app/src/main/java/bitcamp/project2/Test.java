@@ -10,10 +10,10 @@ public class Test {
   public void addTest(ArrayList arrayList) {
     ToDoList toDoList1 = new ToDoList();
     toDoList1.setDate(LocalDate.parse("2024-07-01"));
-    toDoList1.setLate(true);
-    toDoList1.setSleep(true);
-    toDoList1.setStudy(true);
-    toDoList1.setNight(true);
+    toDoList1.setLate(false);
+    toDoList1.setSleep(false);
+    toDoList1.setStudy(false);
+    toDoList1.setNight(false);
     toDoList1.setTodayComplete();
     toDoList1.setTodayComplete();
     toDoList1.setTotalComplete(arrayList.getAverage());
