@@ -1,18 +1,20 @@
 package bitcamp.project2.command;
 
-import bitcamp.project2.App;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 public class ItemCommand {
 
-    // ItemCommand ToDoList & Items 반환
     private static Items items;
     private ToDoList toDoList;
 
     public ItemCommand(Items items) {
         this.items = items;
     }
+
+    public String boldAnsi = "\033[1m";
+    public String resetAnsi = "\033[0m";
+    public String yellowAnsi = "\033[93m";
 
     // //아이템 리스트 받기
     //public void makeItemMenuList(){
@@ -26,20 +28,17 @@ public class ItemCommand {
     // 출력용 Line
     public static String line = "----------------------------------";
 
-    public static void printItemMenus(String menuTitle, String[] menus){
+    public void printItemMenus(String menuTitle, String[] menus){
         String boldAnsi = "\033[1m";
         String resetAnsi = "\033[0m";
-        String yellowAnsi = "\033[93m";
         String appTitle = "             [아이템]";
         System.out.println(boldAnsi + line + resetAnsi);
         System.out.println(boldAnsi + appTitle + resetAnsi);
         System.out.println(boldAnsi + line + resetAnsi);
         if (menuTitle.equals("상점가기"))
         {
-            System.out.printf("1.지각방지.......%10d 골드\n", ShopCommand.priceLateCoupon);
-            System.out.printf("2.졸음방지.......%10d 골드\n", ShopCommand.priceSleepCoupon);
-            System.out.printf("3.복습했다치기...%10d 골드\n", ShopCommand.priceStudyCoupon);
-            System.out.printf("4.야자출튀.......%10d 골드\n", ShopCommand.priceNightCoupon);
+            ShopCommand.printShopInventory();
+
             System.out.println(boldAnsi + line + resetAnsi);
         }
         printItemInventory();
@@ -47,6 +46,7 @@ public class ItemCommand {
         System.out.println("9. 이전");
         System.out.println(boldAnsi + line + resetAnsi);
     }
+
 
     // 메뉴실행
     public void executeItemCommand(String subTitle, ToDoList toDoList) {
@@ -73,7 +73,6 @@ public class ItemCommand {
         if (toDoList.isLate()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            toDoList.setLate(true);
             checkItem(subTitle);
         }
         printItemList(toDoList);
@@ -83,7 +82,6 @@ public class ItemCommand {
         if (toDoList.isSleep()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            toDoList.setSleep(true);
             checkItem(subTitle);
         }
         printItemList(toDoList);
@@ -93,7 +91,6 @@ public class ItemCommand {
         if (toDoList.isStudy()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            toDoList.setStudy(true);
             checkItem(subTitle);
         }
         printItemList(toDoList);
@@ -103,7 +100,6 @@ public class ItemCommand {
         if (toDoList.isNight()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            toDoList.setNight(true);
             checkItem(subTitle);
         }
         printItemList(toDoList);
@@ -123,6 +119,7 @@ public class ItemCommand {
                     break;
                 }else {
                     items.decrementCoupon(subTitle);
+                    toDoList.setLate(true);
                     System.out.printf("[%s]을(를) 사용하였습니다.\n", ansiSubTitle);
                 }
                 break;
@@ -132,6 +129,7 @@ public class ItemCommand {
                     break;
                 }else {
                     items.decrementCoupon(subTitle);
+                    toDoList.setSleep(true);
                     System.out.printf("[%s]을(를) 사용하였습니다.\n", ansiSubTitle);
                 }
                 break;
@@ -141,6 +139,7 @@ public class ItemCommand {
                     break;
                 }else {
                     items.decrementCoupon(subTitle);
+                    toDoList.setStudy(true);
                     System.out.printf("[%s]을(를) 사용하였습니다.\n", ansiSubTitle);
                 }
                 break;
@@ -150,14 +149,15 @@ public class ItemCommand {
                     break;
                 }else {
                     items.decrementCoupon(subTitle);
+                    toDoList.setNight(true);
                     System.out.printf("[%s]을(를) 사용하였습니다.\n", ansiSubTitle);
                 }
                 break;
         }
     }
 
-
-    public static void printItemInventory() {
+    // 아이템리스트
+    public void printItemInventory() {
         System.out.println("[아이템 리스트]");
         System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
         System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
@@ -166,15 +166,11 @@ public class ItemCommand {
         System.out.println(line);
         printGold();
     }
-
-    public static void printGold(){
-        String boldAnsi = "\033[1m";
-        String resetAnsi = "\033[0m";
-        String yellowAnsi = "\033[93m";
+    // 골드
+    public void printGold(){
         String goldString = (boldAnsi + yellowAnsi + items.getGold() + resetAnsi);
         System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
     }
-
     // 현재할일현황 변경
     public void printItemList(ToDoList toDoList){
         System.out.println(line);
@@ -190,6 +186,5 @@ public class ItemCommand {
         System.out.println(line);
         printItemInventory();
         System.out.println(line);
-
     }
 }

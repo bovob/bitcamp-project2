@@ -3,20 +3,24 @@ package bitcamp.project2.command;
 import bitcamp.project2.vo.Items;
 
 public class ShopCommand {
+
     private Items items;
 
+    private ItemCommand itemCommand;
     public ShopCommand(Items items){
         this.items = items;
     }
 
-    String blueAnsi = "\033[94m";
-    String boldAnsi = "\033[1m";
-    String resetAnsi = "\033[0m";
+    public String blueAnsi = "\033[94m";
+    public String boldAnsi = "\033[1m";
+    public String resetAnsi = "\033[0m";
 
+    // 아이템 가격
     public static int priceLateCoupon = 500;
     public static int priceSleepCoupon = 1000;
     public static int priceStudyCoupon = 100000000;
     public static int priceNightCoupon = 500000000;
+
 
     public void executeShopCommand(String subTitle) {
         switch (subTitle){
@@ -35,6 +39,7 @@ public class ShopCommand {
         }
     }
 
+    // 구매로직
     private void buyLateCoupon(String subTitle) {
         String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceLateCoupon) {
@@ -70,7 +75,7 @@ public class ShopCommand {
         }
         printItemList();
     }
-
+    
     private void buyNightCoupon(String subTitle) {
         String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
         if (items.getGold() < priceNightCoupon) {
@@ -83,29 +88,22 @@ public class ShopCommand {
         printItemList();
     }
 
-    public void printItemBuyList() {
-        System.out.println("[아이템 가격]");
+    // 판매리스트
+    public static void printShopInventory() {
+        System.out.println("[아이템 판매 리스트]");
         System.out.printf("1.지각방지.......%10d 골드\n", priceLateCoupon);
         System.out.printf("2.졸음방지.......%10d 골드\n", priceSleepCoupon);
         System.out.printf("3.복습했다치기...%10d 골드\n", priceStudyCoupon);
         System.out.printf("4.야자출튀.......%10d 골드\n", priceNightCoupon);
     }
 
-    public void printItemInventory() {
-        System.out.println("[아이템 리스트]");
-        System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
-        System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
-        System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
-        System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
-        ItemCommand.printGold();
-    }
-
+    // 아이템리스트
     public void printItemList(){
         String line = "----------------------------------";
         System.out.println(line);
-        printItemBuyList();
+        printShopInventory();
         System.out.println(line);
-        printItemInventory();
+        itemCommand.printItemInventory();
         System.out.println(line);
     }
 

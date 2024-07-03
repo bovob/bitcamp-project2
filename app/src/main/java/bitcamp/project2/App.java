@@ -31,9 +31,9 @@ public class App {
     app.execute();
   }
 
-  static void printSubMenu(String menuTitle, String[] menus) {
+  void printSubMenu(String menuTitle, String[] menus) {
     if (menuTitle.equals("아이템사용") | menuTitle.equals("상점가기")) {
-      ItemCommand.printItemMenus(menuTitle, menus);
+      itemCommand.printItemMenus(menuTitle, menus);
     } else {
       System.out.printf("[%s]\n", menuTitle);
       for (int i = 0; i < menus.length; i++) {
