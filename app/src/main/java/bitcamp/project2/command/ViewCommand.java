@@ -3,6 +3,9 @@ package bitcamp.project2.command;
 import bitcamp.project2.util.ArrayList;
 import bitcamp.project2.vo.ToDoList;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class ViewCommand {
   public ToDoList toDoList;
   public ArrayList arr;
@@ -23,38 +26,42 @@ public class ViewCommand {
 
   private void viewWeek() {
     if (arr.size() != 0) {
-      for (Object obj : arr.toArray()) {
-        ToDoList toDDo = (ToDoList) obj;
-        System.out.println(toDDo.getDate());
+
+      LocalDate[] week = getWeek();
+      for (int i = 0; i < week.length; i++) {
+        System.out.printf("   %1$tm-%1$td   |", week[i]);
       }
-      //      Date[] week = getWeek();
-      //      for (int i = 0; i < week.length; i++) {
-      //        Object obj = arr.getToDoList(week[i]);
-      //        ToDoList toDo = (ToDoList) obj;
-      //        if (toDo != null) {
-      //          System.out.print("       yes       |");
-      //        } else {
-      //          System.out.print("      00-00      |");
-      //        }
-      //      }
-      //      System.out.println();
+      System.out.println();
+      for (Object obj : arr.toArray()) {
+        for (int i = 0; i < week.length; i++) {
+          ToDoList toDDo = (ToDoList) obj;
+          System.out.println(toDDo.getDate());
+          //          if (week[i].equals(toDDo.getDate())) {
+          //            System.out.print("    yes    |");
+          //            break;
+          //            //            System.out.printf("   %1$tm-%1$td   |", toDDo.getDate());
+          //          } else {
+          //            System.out.print("     no    |");
+          //          }
+        }
+      }
+      System.out.println();
     }
   }
 
-  //  private Date[] getWeek() {
-  //    Date[] week = new Date[7];
-  //    Date today = toDoList.getDate();
-  //    Calendar calendar = Calendar.getInstance();
-  //    calendar.setTime(today);
-  //    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-  //    calendar.add(Calendar.DAY_OF_MONTH, Calendar.SUNDAY - dayOfWeek);
-  //    for (int i = 0; i < 7; i++) {
-  //      week[i] = calendar.getTime();
-  //      System.out.printf("%1$8tm-%1$-8td|", week[i]);
-  //      calendar.add(Calendar.DAY_OF_MONTH, 1);
-  //    }
-  //    System.out.println();
-  //    return week;
-  //  }
+  private LocalDate[] getWeek() {
+    LocalDate[] week = new LocalDate[7];
+    LocalDate today = toDoList.getDate();
 
+    LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
+    LocalDate endOfWeek = today.with(DayOfWeek.SUNDAY);
+
+    LocalDate current = startOfWeek;
+    int index = 0;
+    while (!current.isAfter(endOfWeek)) {
+      week[index++] = current;
+      current = current.plusDays(1);
+    }
+    return week;
+  }
 }
