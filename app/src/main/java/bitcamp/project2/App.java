@@ -18,7 +18,7 @@ public class App {
   static Items items = new Items();
   public ToDoList toDoList = new ToDoList(LocalDate.now());
   public CompleteCommand completeCommand = new CompleteCommand(items);
-  public ItemCommand itemCommand = new ItemCommand(toDoList, items);
+  public ItemCommand itemCommand = new ItemCommand(items);
   public ShopCommand shopCommand = new ShopCommand(items);
   public ViewCommand viewCommand = new ViewCommand(arrList);
   public DayOverCommand dayOverCommand = new DayOverCommand(arrList);
@@ -49,10 +49,6 @@ public class App {
 
   static String getMenuTitle(int menuNo, String[] menus) {
     return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
-  }
-
-  public static void printGold() {
-    System.out.printf("현재 보유골드는 [ %d ] 입니다. \n", items.getGold());
   }
 
   void printMainMenu() {
@@ -150,7 +146,7 @@ public class App {
               completeCommand.excuteCompleteCommand(subMenuTitle, toDoList);
               break;
             case "아이템사용":
-              itemCommand.executeItemCommand(subMenuTitle);
+              itemCommand.executeItemCommand(subMenuTitle, toDoList);
               break;
             case "상점가기":
               shopCommand.executeShopCommand(subMenuTitle);

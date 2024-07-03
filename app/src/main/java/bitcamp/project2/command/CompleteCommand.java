@@ -5,7 +5,7 @@ import bitcamp.project2.vo.ToDoList;
 
 public class CompleteCommand {
   private final Items items;
-  public ToDoList toDoList;
+
 
   public CompleteCommand(Items items) {
     this.items = items;

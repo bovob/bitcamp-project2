@@ -7,22 +7,21 @@ import bitcamp.project2.vo.ToDoList;
 public class ItemCommand {
 
     // ItemCommand ToDoList & Items 반환
-    private ToDoList toDoList;
     private static Items items;
+    private ToDoList toDoList;
 
-    public ItemCommand(ToDoList toDoList, Items items) {
-        this.toDoList = toDoList;
+    public ItemCommand(Items items) {
         this.items = items;
     }
 
-     //아이템 리스트 받기
-    public void makeItemMenuList(){
-        String[] itemMenuList = new String[App.subMenus[1].length];
-
-        for(int i = 0; i < App.subMenus[1].length; i++){
-            itemMenuList[i] = App.subMenus[1][i];
-        }
-    }
+    // //아이템 리스트 받기
+    //public void makeItemMenuList(){
+    //    String[] itemMenuList = new String[App.subMenus[1].length];
+    //
+    //    for(int i = 0; i < App.subMenus[1].length; i++){
+    //        itemMenuList[i] = App.subMenus[1][i];
+    //    }
+    //}
 
     // 출력용 Line
     public static String line = "----------------------------------";
@@ -50,64 +49,64 @@ public class ItemCommand {
     }
 
     // 메뉴실행
-    public void executeItemCommand(String subTitle) {
+    public void executeItemCommand(String subTitle, ToDoList toDoList) {
 
         switch (subTitle){
             case "지각방지":
-                useLateCoupon(subTitle);
+                useLateCoupon(subTitle,toDoList);
                 break;
             case "졸음방지":
-                useSleepCoupon(subTitle);
+                useSleepCoupon(subTitle,toDoList);
                 break;
             case "복습했다치기":
-                useStudyCoupon(subTitle);
+                useStudyCoupon(subTitle,toDoList);
                 break;
             case "야자출튀":
-                useNightCoupon(subTitle);
+                useNightCoupon(subTitle,toDoList);
                 break;
         }
 
     }
 
     // 아이템(쿠폰)사용
-    private void useLateCoupon(String subTitle) {
+    private void useLateCoupon(String subTitle, ToDoList toDoList) {
         if (toDoList.isLate()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
             toDoList.setLate(true);
             checkItem(subTitle);
         }
-        printItemList();
+        printItemList(toDoList);
     }
 
-    private void useSleepCoupon(String subTitle) {
+    private void useSleepCoupon(String subTitle, ToDoList toDoList) {
         if (toDoList.isSleep()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
             toDoList.setSleep(true);
             checkItem(subTitle);
         }
-        printItemList();
+        printItemList(toDoList);
     }
 
-    private void useStudyCoupon(String subTitle) {
+    private void useStudyCoupon(String subTitle, ToDoList toDoList) {
         if (toDoList.isStudy()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
             toDoList.setStudy(true);
             checkItem(subTitle);
         }
-        printItemList();
+        printItemList(toDoList);
     }
 
-    private void useNightCoupon(String subTitle) {
+    private void useNightCoupon(String subTitle, ToDoList toDoList) {
         if (toDoList.isNight()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
             toDoList.setNight(true);
             checkItem(subTitle);
         }
-        printItemList();
+        printItemList(toDoList);
     }
 
     // 아이템체크
@@ -176,30 +175,18 @@ public class ItemCommand {
         System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
     }
 
-    public void printItemList(){
-        final String ansiReset = "\u001B[0m";
-        final String ansiRed = "\u001B[31m";
-        final String ansiBlue = "\u001B[34m";
-
+    // 현재할일현황 변경
+    public void printItemList(ToDoList toDoList){
         System.out.println(line);
         System.out.println("현재 할일 현황");
-
-        System.out.printf("노지각 : %s%-4s%s  노졸음 : %s%-4s%s\n",
-            toDoList.isLate() ? ansiBlue : ansiRed,
-            toDoList.isLate(),
-            ansiReset,
-            toDoList.isSleep() ? ansiBlue : ansiRed,
-            toDoList.isSleep(),
-            ansiReset);
-
-        System.out.printf("복  습 : %s%-4s%s  야  자 : %s%-4s%s\n",
-            toDoList.isStudy() ? ansiBlue : ansiRed,
-            toDoList.isStudy(),
-            ansiReset,
-            toDoList.isNight() ? ansiBlue : ansiRed,
-            toDoList.isNight(),
-            ansiReset);
-
+        System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? "\033[94m" : "\033[31m"),
+            (toDoList.isLate() ? "완료" : "실패"), "\033[0m");
+        System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? "\033[94m" : "\033[31m"),
+            (toDoList.isSleep() ? "완료" : "실패"), "\033[0m");
+        System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? "\033[94m" : "\033[31m"),
+            (toDoList.isStudy() ? "완료" : "실패"), "\033[0m");
+        System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? "\033[94m" : "\033[31m"),
+            (toDoList.isNight() ? "완료" : "실패"), "\033[0m");
         System.out.println(line);
         printItemInventory();
         System.out.println(line);
