@@ -2,8 +2,8 @@ package bitcamp.project2.util;
 
 import bitcamp.project2.vo.ToDoList;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 public class ArrayList {
 
@@ -71,10 +71,10 @@ public class ArrayList {
     return size;
   }
 
-  public Object getToDoList(Date date) {
+  public Object getToDoList(LocalDate date) {
     for (Object obj : this.toArray()) {
       ToDoList toDoList = (ToDoList) obj;
-      if (toDoList.getDate().equals(date)) {
+      if (toDoList.getDate().isEqual(date)) {
         return obj;
       }
     }
