@@ -23,6 +23,12 @@ public class App {
   public ViewCommand viewCommand = new ViewCommand(arrList);
   public DayOverCommand dayOverCommand = new DayOverCommand(arrList);
 
+  //ANSI SET
+  String dotCode = "\u25AE";
+  String redAnsi = "\033[31m";
+  String resetAnsi = "\033[0m";
+  String blueAnsi = "\033[94m";
+  String boldAnsi = "\033[1m";
 
   public static void main(String[] args) {
     Test test = new Test();
@@ -43,6 +49,18 @@ public class App {
     }
   }
 
+  public void printTodayDoitList(){
+    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+    System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? blueAnsi : redAnsi),
+        (toDoList.isLate() ? "완료" : "실패"), resetAnsi);
+    System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? blueAnsi : redAnsi),
+        (toDoList.isSleep() ? "완료" : "실패"), resetAnsi);
+    System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? blueAnsi : redAnsi),
+        (toDoList.isStudy() ? "완료" : "실패"), resetAnsi);
+    System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? blueAnsi : redAnsi),
+        (toDoList.isNight() ? "완료" : "실패"), resetAnsi);
+  }
+
   static boolean isValidateMenu(int menuNo, String[] menus) {
     return menuNo >= 1 && menuNo <= menus.length;
   }
@@ -51,26 +69,16 @@ public class App {
     return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
   }
 
-  void printMainMenu() {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-    String blueAnsi = "\033[94m";
 
+  void printMainMenu() {
     String appTitle = "      [스파르타 공부법]";
     String line = "----------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
     System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
-    System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? "\033[94m" : "\033[31m"),
-        (toDoList.isLate() ? "완료" : "실패"), "\033[0m");
-    System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? "\033[94m" : "\033[31m"),
-        (toDoList.isSleep() ? "완료" : "실패"), "\033[0m");
-    System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? "\033[94m" : "\033[31m"),
-        (toDoList.isStudy() ? "완료" : "실패"), "\033[0m");
-    System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? "\033[94m" : "\033[31m"),
-        (toDoList.isNight() ? "완료" : "실패"), "\033[0m");
+
+    printTodayDoitList();
+
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(toDoList.getDate());
     System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
@@ -164,11 +172,6 @@ public class App {
   }
 
   public void printGraph(float total, String day) {
-    String dotCode = "\u25AE";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-    String blueAnsi = "\033[94m";
-
     int barLength = 18;
     double ratio = total == 0 ? 0 : total / 100.0f;
     int filledLength = (int) (ratio * barLength);

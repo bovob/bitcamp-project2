@@ -1,5 +1,6 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.App;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
@@ -7,6 +8,7 @@ public class ItemCommand {
 
     private static Items items;
     private ToDoList toDoList;
+    private App App;
 
     public ItemCommand(Items items) {
         this.items = items;
@@ -174,15 +176,9 @@ public class ItemCommand {
     // 현재할일현황 변경
     public void printItemList(ToDoList toDoList){
         System.out.println(line);
-        System.out.println("현재 할일 현황");
-        System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? "\033[94m" : "\033[31m"),
-            (toDoList.isLate() ? "완료" : "실패"), "\033[0m");
-        System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? "\033[94m" : "\033[31m"),
-            (toDoList.isSleep() ? "완료" : "실패"), "\033[0m");
-        System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? "\033[94m" : "\033[31m"),
-            (toDoList.isStudy() ? "완료" : "실패"), "\033[0m");
-        System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? "\033[94m" : "\033[31m"),
-            (toDoList.isNight() ? "완료" : "실패"), "\033[0m");
+
+        App.printTodayDoitList();
+
         System.out.println(line);
         printItemInventory();
         System.out.println(line);
