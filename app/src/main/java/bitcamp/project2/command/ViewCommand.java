@@ -29,16 +29,27 @@ public class ViewCommand {
 
       LocalDate[] week = getWeek();
       for (int i = 0; i < week.length; i++) {
-        System.out.printf("   %1$tm-%1$td   |", week[i]);
+        System.out.printf("    %1$tm-%1$td     |", week[i]);
       }
       System.out.println();
       for (int i = 0; i < week.length; i++) {
         Object obj = arr.getToDoList(week[i]);
         ToDoList toDDo = (ToDoList) obj;
         if (toDDo != null) {
-          System.out.print("    yes    |");
+          System.out.printf("     %2.1f    |", toDDo.getTodayComplete());
         } else {
-          System.out.print("     no    |");
+          System.out.print("      no      |");
+        }
+      }
+      System.out.println();
+
+      for (int i = 0; i < week.length; i++) {
+        Object obj = arr.getToDoList(week[i]);
+        ToDoList toDDo = (ToDoList) obj;
+        if (toDDo != null) {
+          System.out.printf("     %2.1f    |", toDDo.getTotalComplete());
+        } else {
+          System.out.print("      no    |");
         }
       }
       System.out.println();

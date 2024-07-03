@@ -80,4 +80,18 @@ public class ArrayList {
     }
     return null;
   }
+
+  public float getAverage() {
+    float sum = 0;
+    int counter = 0;
+    for (Object obj : this.toArray()) {
+      counter++;
+      ToDoList toDoList = (ToDoList) obj;
+      sum += toDoList.getTodayComplete();
+    }
+    return counter != 0 ? sum / counter : 0;
+  }
+
 }
+
+

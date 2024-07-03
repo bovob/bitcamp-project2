@@ -38,6 +38,7 @@ public class CompleteCommand {
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
       items.incrementGold(10);
       System.out.println("10 골드를 얻었습니다.");
+      toDoList.setTodayComplete();
     }
   }
 
@@ -49,6 +50,7 @@ public class CompleteCommand {
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
       items.incrementGold(20);
       System.out.println("20 골드를 얻었습니다.");
+      toDoList.setTodayComplete();
     }
   }
 
@@ -61,6 +63,7 @@ public class CompleteCommand {
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
       items.incrementGold(50);
       System.out.println("50 골드를 얻었습니다.");
+      toDoList.setTodayComplete();
     }
   }
 
@@ -72,6 +75,7 @@ public class CompleteCommand {
       System.out.printf("[%s]을(를) 완료 했습니다.\n", subTitle);
       items.incrementGold(100);
       System.out.println("100 골드를 얻었습니다.");
+      toDoList.setTodayComplete();
     }
   }
 }

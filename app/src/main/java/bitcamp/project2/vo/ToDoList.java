@@ -3,12 +3,13 @@ package bitcamp.project2.vo;
 import java.time.LocalDate;
 
 public class ToDoList {
-  private static int size;
   private LocalDate date;
   private boolean late;
   private boolean sleep;
   private boolean study;
   private boolean night;
+  private float todayComplete;
+  private float totalComplete;
 
   public ToDoList() {
   }
@@ -17,8 +18,29 @@ public class ToDoList {
     this.date = date;
   }
 
-  public static int getNextSize() {
-    return ++size;
+  public void setTodayComplete() {
+    float sum = 0;
+    if (this.isSleep())
+      sum += 1;
+    if (this.isStudy())
+      sum += 1;
+    if (this.isNight())
+      sum += 1;
+    if (this.isLate())
+      sum += 1;
+    this.todayComplete = sum / 4 * 100;
+  }
+
+  public float getTodayComplete() {
+    return todayComplete;
+  }
+
+  public float getTotalComplete() {
+    return totalComplete;
+  }
+
+  public void setTotalComplete(float avg) {
+    this.totalComplete = avg;
   }
 
   public LocalDate getDate() {

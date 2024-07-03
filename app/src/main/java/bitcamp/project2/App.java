@@ -29,19 +29,6 @@ public class App {
     app.execute();
   }
 
-  static float getPercent(ToDoList toDoList) {
-    float sum = 0;
-    if (toDoList.isSleep())
-      sum += 1;
-    if (toDoList.isStudy())
-      sum += 1;
-    if (toDoList.isNight())
-      sum += 1;
-    if (toDoList.isLate())
-      sum += 1;
-    return sum / 4;
-  }
-
   static void printSubMenu(String menuTitle, String[] menus) {
     System.out.printf("[%s]\n", menuTitle);
     for (int i = 0; i < menus.length; i++) {
@@ -74,8 +61,9 @@ public class App {
     System.out.println("야    자:  " + toDoList.isNight());
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(toDoList.getDate());
-    System.out.println("Today : " + getPercent(toDoList) + "%");
-    System.out.println("Total : " + getPercent(toDoList) + "%");
+    System.out.println("Today : " + toDoList.getTodayComplete() + "%");
+    toDoList.setTotalComplete(arrList.getAverage());
+    System.out.println("Total : " + toDoList.getTotalComplete() + "%");
     System.out.println(boldAnsi + line + resetAnsi);
 
     // 오늘 할일 메소드 출력
