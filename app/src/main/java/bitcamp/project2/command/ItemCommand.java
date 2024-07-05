@@ -1,8 +1,10 @@
 package bitcamp.project2.command;
 
-import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
+
+import static bitcamp.project2.vo.CSS.*;
+
 
 public class ItemCommand {
 
@@ -14,19 +16,20 @@ public class ItemCommand {
 
   public void printItemMenus(String menuTitle, String[] menus) {
     String appTitle = "             [아이템]";
-    System.out.println(css.boldLine);
-    System.out.println(css.boldAnsi + appTitle + css.resetAnsi);
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
+    System.out.println(boldAnsi + appTitle + resetAnsi);
+    System.out.println(boldLine);
     if (menuTitle.equals("상점가기")) {
       ShopCommand.printShopInventory();
 
-      System.out.println(css.boldLine);
+      System.out.println(boldLine);
     }
     printItemInventory();
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     System.out.println("9. 이전");
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
   }
+
   // 메뉴실행
   public void executeItemCommand(String subTitle, ToDoList toDoList) {
 
@@ -85,7 +88,7 @@ public class ItemCommand {
 
   // 아이템체크
   public void checkItem(String subTitle, ToDoList toDoList) {
-    String ansiSubTitle = (css.boldAnsi + subTitle + css.resetAnsi);
+    String ansiSubTitle = (boldAnsi + subTitle + resetAnsi);
 
     switch (subTitle) {
       case "지각방지":
@@ -138,22 +141,22 @@ public class ItemCommand {
     System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
     System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
     System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     printGold();
   }
 
   // 골드
   public void printGold() {
-    String goldString = (css.boldYellowAnsi + items.getGold() + css.resetAnsi);
+    String goldString = (boldYellowAnsi + items.getGold() + resetAnsi);
     System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
   }
 
   // 현재할일현황 변경
   public void printItemList(ToDoList toDoList) {
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     bitcamp.project2.App.printTodayDoitList(toDoList);
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     printItemInventory();
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
   }
 }

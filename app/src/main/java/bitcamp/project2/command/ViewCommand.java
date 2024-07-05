@@ -1,12 +1,17 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.App;
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.util.ArrayList;
-import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.ToDoList;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+
+import static bitcamp.project2.vo.CSS.boldLine;
+import static bitcamp.project2.vo.CSS.boldLongLine;
+
+
 
 public class ViewCommand {
   public ArrayList arr;
@@ -29,7 +34,7 @@ public class ViewCommand {
   }
 
   private void viewWeek(ToDoList toDoList) {
-    System.out.println(css.boldLongLine);
+    System.out.println(boldLongLine);
 
     if (arr.size() != 0) {
       LocalDate[] week = getWeek(toDoList);
@@ -64,15 +69,15 @@ public class ViewCommand {
       }
       System.out.println();
     }
-    System.out.println(css.boldLongLine);
+    System.out.println(boldLongLine);
 
   }
 
   private void viewDay(ToDoList toDoList) {
     LocalDate findDate = Prompt.inputDate("조회일(yyyy-MM-dd)?");
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     Object obj = arr.getToDoList(findDate);
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
     ToDoList toDo = (ToDoList) obj;
     if (toDo != null) {
       System.out.printf("조 회 일 : %s\n", findDate);
@@ -83,7 +88,7 @@ public class ViewCommand {
     } else {
       System.out.println("해당 날짜에는 공부를 안햇습니다.");
     }
-    System.out.println(css.boldLine);
+    System.out.println(boldLine);
 
 
   }
