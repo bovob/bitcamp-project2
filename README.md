@@ -1,4 +1,4 @@
-## 👨‍🏫 To DO List - 스파트라 공부법 <a name = "role"></a>
+## 👨‍🏫 To DO List - 스파르타 공부법 <a name = "role"></a>
 + 네이버 클라우드 부트캠프 수업 중 팀 프로젝트로 진행한 토이 프로젝트<br>
 + 게임 방식으로 적용한 To Do List 
 
