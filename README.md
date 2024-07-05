@@ -23,7 +23,7 @@
 - [결과](#outputs)
 
 ## 📈 아키텍처 <a name = "structure"> </a>
-
+![structure](https://github.com/kknaks/bitcamp-project2/blob/main/structure.jpg?raw=true)
 
 ## 📌 주요 기능 <a name = "functions"> </a>
 - 메인 UI
