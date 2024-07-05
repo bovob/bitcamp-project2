@@ -7,16 +7,19 @@ import bitcamp.project2.vo.ToDoList;
 public class ItemCommand {
 
     private static Items items;
-    private ToDoList toDoList;
     private App App;
+
+    //ANSI SET
+    public String redAnsi = "\033[31m";
+    public String resetAnsi = "\033[0m";
+    public String blueAnsi = "\033[94m";
+    public String boldAnsi = "\033[1m";
+    public String yellowAnsi = "\033[93m";
+    String line = "----------------------------------";
 
     public ItemCommand(Items items) {
         this.items = items;
     }
-
-    public String boldAnsi = "\033[1m";
-    public String resetAnsi = "\033[0m";
-    public String yellowAnsi = "\033[93m";
 
     // //아이템 리스트 받기
     //public void makeItemMenuList(){
@@ -26,9 +29,6 @@ public class ItemCommand {
     //        itemMenuList[i] = App.subMenus[1][i];
     //    }
     //}
-
-    // 출력용 Line
-    public static String line = "----------------------------------";
 
     public void printItemMenus(String menuTitle, String[] menus){
         String boldAnsi = "\033[1m";
@@ -75,7 +75,7 @@ public class ItemCommand {
         if (toDoList.isLate()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            checkItem(subTitle);
+            checkItem(subTitle,toDoList);
         }
         printItemList(toDoList);
     }
@@ -84,7 +84,7 @@ public class ItemCommand {
         if (toDoList.isSleep()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            checkItem(subTitle);
+            checkItem(subTitle,toDoList);
         }
         printItemList(toDoList);
     }
@@ -93,7 +93,7 @@ public class ItemCommand {
         if (toDoList.isStudy()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            checkItem(subTitle);
+            checkItem(subTitle,toDoList);
         }
         printItemList(toDoList);
     }
@@ -102,13 +102,13 @@ public class ItemCommand {
         if (toDoList.isNight()){
             System.out.println("이미 달성하여 사용할 수 없습니다.");
         } else {
-            checkItem(subTitle);
+            checkItem(subTitle,toDoList);
         }
         printItemList(toDoList);
     }
 
     // 아이템체크
-    public void checkItem(String subTitle){
+    public void checkItem(String subTitle, ToDoList toDoList){
         String blueAnsi = "\033[94m";
         String boldAnsi = "\033[1m";
         String resetAnsi = "\033[0m";
@@ -176,9 +176,15 @@ public class ItemCommand {
     // 현재할일현황 변경
     public void printItemList(ToDoList toDoList){
         System.out.println(line);
-
-        App.printTodayDoitList();
-
+        System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+        System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? blueAnsi : redAnsi),
+            (toDoList.isLate() ? "완료" : "실패"), resetAnsi);
+        System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? blueAnsi : redAnsi),
+            (toDoList.isSleep() ? "완료" : "실패"), resetAnsi);
+        System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? blueAnsi : redAnsi),
+            (toDoList.isStudy() ? "완료" : "실패"), resetAnsi);
+        System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? blueAnsi : redAnsi),
+            (toDoList.isNight() ? "완료" : "실패"), resetAnsi);
         System.out.println(line);
         printItemInventory();
         System.out.println(line);

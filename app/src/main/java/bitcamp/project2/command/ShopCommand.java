@@ -6,14 +6,18 @@ public class ShopCommand {
 
     private Items items;
 
+    //ANSI SET
+    public String redAnsi = "\033[31m";
+    public String resetAnsi = "\033[0m";
+    public String blueAnsi = "\033[94m";
+    public String boldAnsi = "\033[1m";
+    public String yellowAnsi = "\033[93m";
+    public String line = "----------------------------------";
+
     private ItemCommand itemCommand;
     public ShopCommand(Items items){
         this.items = items;
     }
-
-    public String blueAnsi = "\033[94m";
-    public String boldAnsi = "\033[1m";
-    public String resetAnsi = "\033[0m";
 
     // 아이템 가격
     public static int priceLateCoupon = 500;
@@ -99,12 +103,27 @@ public class ShopCommand {
 
     // 아이템리스트
     public void printItemList(){
-        String line = "----------------------------------";
         System.out.println(line);
         printShopInventory();
         System.out.println(line);
-        itemCommand.printItemInventory();
+        printItemInventory();
         System.out.println(line);
+    }
+
+    // 아이템리스트
+    public void printItemInventory() {
+        System.out.println("[아이템 리스트]");
+        System.out.printf("1.지각방지.......%4d 개\n", items.getLateCoupon());
+        System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
+        System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
+        System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
+        System.out.println(line);
+        printGold();
+    }
+    // 골드
+    public void printGold(){
+        String goldString = (boldAnsi + yellowAnsi + items.getGold() + resetAnsi);
+        System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
     }
 
 }
