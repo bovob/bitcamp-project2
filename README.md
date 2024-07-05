@@ -58,3 +58,22 @@
     - 새로운 ToDoList 객체생성 및 날짜 조정
       
 ## 📌 결과 <a name = "outputs"> </a>
+- 과업완료하기 
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/78bd6f09-34d1-4555-8443-cc23b5e674e9" width="500", height="300">
+</p>
+
+- 아이템사용, 상점가기
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/e7387cc3-0131-4dd6-9657-98cbb95bda86"width="500", height="300">
+</p>
+
+- 업적조회
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/e7387cc3-0131-4dd6-9657-98cbb95bda86"width="500", height="300">
+</p>
+
+- 일과종료
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/7da7a908-55f6-45f3-87cf-07c9de0ac698"width="500", height="300">
+</p>
