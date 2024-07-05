@@ -9,6 +9,13 @@ import bitcamp.project2.vo.ToDoList;
 import java.time.LocalDate;
 
 public class App {
+  //ANSI SET
+  static final String dotCode = "\u25AE";
+  static final String redAnsi = "\033[31m";
+  static final String resetAnsi = "\033[0m";
+  static final String blueAnsi = "\033[94m";
+  static final String boldAnsi = "\033[1m";
+  static final String line = "----------------------------------";
   public static ArrayList arrList = new ArrayList();
   public static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
@@ -23,18 +30,35 @@ public class App {
   public ViewCommand viewCommand = new ViewCommand(arrList);
   public DayOverCommand dayOverCommand = new DayOverCommand(arrList);
 
-  //ANSI SET
-  String dotCode = "\u25AE";
-  String redAnsi = "\033[31m";
-  String resetAnsi = "\033[0m";
-  String blueAnsi = "\033[94m";
-  String boldAnsi = "\033[1m";
-
   public static void main(String[] args) {
     Test test = new Test();
     test.addTest(arrList);
     App app = new App();
     app.execute();
+  }
+
+  static boolean isValidateMenu(int menuNo, String[] menus) {
+    return menuNo >= 1 && menuNo <= menus.length;
+  }
+
+  static String getMenuTitle(int menuNo, String[] menus) {
+    return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
+  }
+
+  public static void printTodayDoitList(ToDoList toDoList) {
+    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+    System.out.printf("노 지 각 :  %s\n", toDoAnsi(toDoList.isLate()));
+    System.out.printf("노 졸 음 :  %s\n", toDoAnsi(toDoList.isSleep()));
+    System.out.printf("복    습 :  %s\n", toDoAnsi(toDoList.isStudy()));
+    System.out.printf("야    자 :  %s\n", toDoAnsi(toDoList.isNight()));
+    System.out.println(boldAnsi + line + resetAnsi);
+  }
+
+  public static String toDoAnsi(Boolean bool) {
+    return bool ?
+        String.format("%s%s%s", blueAnsi, "완료", resetAnsi) :
+        String.format("%s%s%s", redAnsi, "미완", resetAnsi);
   }
 
   void printSubMenu(String menuTitle, String[] menus) {
@@ -49,37 +73,11 @@ public class App {
     }
   }
 
-  public void printTodayDoitList(){
-    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
-    System.out.printf("%s노 지 각 :  %s%s\n", (toDoList.isLate() ? blueAnsi : redAnsi),
-        (toDoList.isLate() ? "완료" : "실패"), resetAnsi);
-    System.out.printf("%s노 졸 음 :  %s%s\n", (toDoList.isSleep() ? blueAnsi : redAnsi),
-        (toDoList.isSleep() ? "완료" : "실패"), resetAnsi);
-    System.out.printf("%s복    습 :  %s%s\n", (toDoList.isStudy() ? blueAnsi : redAnsi),
-        (toDoList.isStudy() ? "완료" : "실패"), resetAnsi);
-    System.out.printf("%s야    자 :  %s%s\n", (toDoList.isNight() ? blueAnsi : redAnsi),
-        (toDoList.isNight() ? "완료" : "실패"), resetAnsi);
-  }
-
-  static boolean isValidateMenu(int menuNo, String[] menus) {
-    return menuNo >= 1 && menuNo <= menus.length;
-  }
-
-  static String getMenuTitle(int menuNo, String[] menus) {
-    return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
-  }
-
-
   void printMainMenu() {
     String appTitle = "      [스파르타 공부법]";
-    String line = "----------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
     System.out.println(boldAnsi + appTitle + resetAnsi);
-    System.out.println(boldAnsi + line + resetAnsi);
-
-    printTodayDoitList();
-
-    System.out.println(boldAnsi + line + resetAnsi);
+    App.printTodayDoitList(toDoList);
     System.out.println(toDoList.getDate());
     System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
     printGraph(toDoList.getTodayComplete(), "today");
@@ -136,7 +134,7 @@ public class App {
   void processSubMenu(String menuTitle, String[] menus) {
     printSubMenu(menuTitle, menus);
     while (true) {
-      String command = Prompt.input(String.format("메인/%s> ", menuTitle));
+      String command = Prompt.input("메인/%s> ", menuTitle);
       if (command.equals("menu")) {
         printSubMenu(menuTitle, menus);
         continue;
