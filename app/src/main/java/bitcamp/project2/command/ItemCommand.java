@@ -1,20 +1,14 @@
 package bitcamp.project2.command;
 
-import bitcamp.project2.App;
+
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
+
+import static bitcamp.project2.App.*;
 
 public class ItemCommand {
 
   private static Items items;
-  //ANSI SET
-  public String redAnsi = "\033[31m";
-  public String resetAnsi = "\033[0m";
-  public String blueAnsi = "\033[94m";
-  public String boldAnsi = "\033[1m";
-  public String yellowAnsi = "\033[93m";
-  String line = "----------------------------------";
-  private App App;
 
   public ItemCommand(Items items) {
     ItemCommand.items = items;

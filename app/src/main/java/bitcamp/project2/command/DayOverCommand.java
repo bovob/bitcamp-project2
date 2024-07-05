@@ -28,10 +28,6 @@ public class DayOverCommand {
         LocalDate tomorrow = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
         tomorrow = tomorrow.plusDays(1);
         ToDoList newtoDoList = new ToDoList(tomorrow);
-        newtoDoList.setLate(false);
-        newtoDoList.setSleep(false);
-        newtoDoList.setStudy(false);
-        newtoDoList.setNight(false);
         System.out.println("저장 완료.");
         System.out.printf("%s로 넘어갑니다.\n", newtoDoList.getDate());
         return newtoDoList;

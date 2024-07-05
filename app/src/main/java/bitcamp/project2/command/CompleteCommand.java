@@ -9,7 +9,6 @@ public class CompleteCommand {
 
   public CompleteCommand(Items items) {
     this.items = items;
-
   }
 
   public void excuteCompleteCommand(String subTitle, ToDoList toDoList) {
@@ -53,7 +52,6 @@ public class CompleteCommand {
       toDoList.setTodayComplete();
     }
   }
-
 
   void completeStudy(String subTitle, ToDoList toDoList) {
     if (toDoList.isStudy()) {

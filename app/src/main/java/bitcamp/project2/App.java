@@ -10,12 +10,13 @@ import java.time.LocalDate;
 
 public class App {
   //ANSI SET
-  static final String dotCode = "\u25AE";
-  static final String redAnsi = "\033[31m";
-  static final String resetAnsi = "\033[0m";
-  static final String blueAnsi = "\033[94m";
-  static final String boldAnsi = "\033[1m";
-  static final String line = "----------------------------------";
+  public static final String dotCode = "\u25AE";
+  public static final String redAnsi = "\033[31m";
+  public static final String resetAnsi = "\033[0m";
+  public static final String blueAnsi = "\033[94m";
+  public static final String yellowAnsi = "\033[93m";
+  public static final String boldAnsi = "\033[1m";
+  public static final String line = "----------------------------------";
   public static ArrayList arrList = new ArrayList();
   public static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용

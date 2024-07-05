@@ -1,11 +1,14 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.App;
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.util.ArrayList;
 import bitcamp.project2.vo.ToDoList;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+
+import static bitcamp.project2.App.*;
 
 public class ViewCommand {
   public ArrayList arr;
@@ -28,9 +31,6 @@ public class ViewCommand {
   }
 
   private void viewWeek(ToDoList toDoList) {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
     String line = "----------------------------------------------------------------------";
     System.out.println(boldAnsi + line + resetAnsi);
 
@@ -38,13 +38,14 @@ public class ViewCommand {
       LocalDate[] week = getWeek(toDoList);
       System.out.printf("조회 기준일 : %s\n", toDoList.getDate());
       System.out.print("| 날      짜 |");
-      for (int i = 0; i < week.length; i++) {
-        System.out.printf(" %1$tm-%1$td |", week[i]);
+      for (LocalDate date : week) {
+        System.out.printf(" %1$tm-%1$td |", date);
       }
       System.out.println();
+
       System.out.print("| 당일달성률 |");
-      for (int i = 0; i < week.length; i++) {
-        Object obj = arr.getToDoList(week[i]);
+      for (LocalDate localDate : week) {
+        Object obj = arr.getToDoList(localDate);
         ToDoList toDDo = (ToDoList) obj;
         if (toDDo != null) {
           System.out.printf(" %5.1f |", toDDo.getTodayComplete());
@@ -55,8 +56,8 @@ public class ViewCommand {
 
       System.out.println();
       System.out.print("| 누적달성률 |");
-      for (int i = 0; i < week.length; i++) {
-        Object obj = arr.getToDoList(week[i]);
+      for (LocalDate localDate : week) {
+        Object obj = arr.getToDoList(localDate);
         ToDoList toDDo = (ToDoList) obj;
         if (toDDo != null) {
           System.out.printf(" %5.1f |", toDDo.getTotalComplete());
@@ -71,7 +72,6 @@ public class ViewCommand {
   }
 
   private void viewDay(ToDoList toDoList) {
-    String line = "----------------------------------";
     LocalDate findDate = Prompt.inputDate("조회일(yyyy-MM-dd)?");
     System.out.println(line);
     Object obj = arr.getToDoList(findDate);
@@ -79,15 +79,7 @@ public class ViewCommand {
     ToDoList toDo = (ToDoList) obj;
     if (toDo != null) {
       System.out.printf("조 회 일 : %s\n", findDate);
-      System.out.printf("%s노 지 각 :  %s%s\n", (toDo.isLate() ? "\033[94m" : "\033[31m"),
-          (toDo.isLate() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s노 졸 음 :  %s%s\n", (toDo.isSleep() ? "\033[94m" : "\033[31m"),
-          (toDo.isSleep() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s복    습 :  %s%s\n", (toDo.isStudy() ? "\033[94m" : "\033[31m"),
-          (toDo.isStudy() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s야    자 :  %s%s\n", (toDo.isNight() ? "\033[94m" : "\033[31m"),
-          (toDo.isNight() ? "완료" : "실패"), "\033[0m");
-      System.out.println(line);
+      App.printTodayDoitList(toDo);
       System.out.printf("Today : %4.1f%%  \n", toDo.getTodayComplete());
       System.out.printf("Total : %4.1f%%  \n", toDo.getTotalComplete());
 
