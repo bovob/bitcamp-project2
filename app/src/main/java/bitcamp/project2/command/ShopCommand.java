@@ -1,30 +1,20 @@
 package bitcamp.project2.command;
 
+import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.Items;
 
 public class ShopCommand {
-
     private Items items;
+    CSS css = new CSS();
 
-    //ANSI SET
-    public String redAnsi = "\033[31m";
-    public String resetAnsi = "\033[0m";
-    public String blueAnsi = "\033[94m";
-    public String boldAnsi = "\033[1m";
-    public String yellowAnsi = "\033[93m";
-    public String line = "----------------------------------";
-
-    private ItemCommand itemCommand;
     public ShopCommand(Items items){
         this.items = items;
     }
-
     // 아이템 가격
     public static int priceLateCoupon = 500;
     public static int priceSleepCoupon = 1000;
     public static int priceStudyCoupon = 100000000;
     public static int priceNightCoupon = 500000000;
-
 
     public void executeShopCommand(String subTitle) {
         switch (subTitle){
@@ -45,7 +35,7 @@ public class ShopCommand {
 
     // 구매로직
     private void buyLateCoupon(String subTitle) {
-        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
+        String ansiSubTitle = (css.boldBlueAnsi+subTitle+css.resetAnsi);
         if (items.getGold() < priceLateCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
@@ -57,7 +47,7 @@ public class ShopCommand {
     }
 
     private void buySleepCoupon(String subTitle) {
-        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
+        String ansiSubTitle = (css.boldBlueAnsi+subTitle+css.resetAnsi);
         if (items.getGold() < priceSleepCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
@@ -69,7 +59,7 @@ public class ShopCommand {
     }
 
     private void buyStudyCoupon(String subTitle) {
-        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
+        String ansiSubTitle = (css.boldBlueAnsi+subTitle+css.resetAnsi);
         if (items.getGold() < priceStudyCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
@@ -81,7 +71,7 @@ public class ShopCommand {
     }
     
     private void buyNightCoupon(String subTitle) {
-        String ansiSubTitle = (blueAnsi+boldAnsi+subTitle+resetAnsi);
+        String ansiSubTitle = (css.boldBlueAnsi+subTitle+css.resetAnsi);
         if (items.getGold() < priceNightCoupon) {
             System.out.println("골드가 부족합니다.");
         } else {
@@ -91,7 +81,6 @@ public class ShopCommand {
         }
         printItemList();
     }
-
     // 판매리스트
     public static void printShopInventory() {
         System.out.println("[아이템 판매 리스트]");
@@ -100,16 +89,14 @@ public class ShopCommand {
         System.out.printf("3.복습했다치기...%10d 골드\n", priceStudyCoupon);
         System.out.printf("4.야자출튀.......%10d 골드\n", priceNightCoupon);
     }
-
     // 아이템리스트
     public void printItemList(){
-        System.out.println(line);
+        System.out.println(css.boldLine);
         printShopInventory();
-        System.out.println(line);
+        System.out.println(css.boldLine);
         printItemInventory();
-        System.out.println(line);
+        System.out.println(css.boldLine);
     }
-
     // 아이템리스트
     public void printItemInventory() {
         System.out.println("[아이템 리스트]");
@@ -117,12 +104,12 @@ public class ShopCommand {
         System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
         System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
         System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
-        System.out.println(line);
+        System.out.println(css.boldLine);
         printGold();
     }
     // 골드
     public void printGold(){
-        String goldString = (boldAnsi + yellowAnsi + items.getGold() + resetAnsi);
+        String goldString = (css.boldYellowAnsi + items.getGold() + css.resetAnsi);
         System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
     }
 

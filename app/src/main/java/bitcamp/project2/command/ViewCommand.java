@@ -2,6 +2,7 @@ package bitcamp.project2.command;
 
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.util.ArrayList;
+import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.ToDoList;
 
 import java.time.DayOfWeek;
@@ -13,6 +14,8 @@ public class ViewCommand {
   public ViewCommand(ArrayList arr) {
     this.arr = arr;
   }
+
+  CSS css = new CSS();
 
   public void excuteViewCommand(String subTitle, ToDoList toDoList) {
     //        System.out.printf("[%s]\n", subTitle);
@@ -28,11 +31,7 @@ public class ViewCommand {
   }
 
   private void viewWeek(ToDoList toDoList) {
-    String boldAnsi = "\033[1m";
-    String redAnsi = "\033[31m";
-    String resetAnsi = "\033[0m";
-    String line = "----------------------------------------------------------------------";
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLongLine);
 
     if (arr.size() != 0) {
       LocalDate[] week = getWeek(toDoList);
@@ -66,35 +65,34 @@ public class ViewCommand {
       }
       System.out.println();
     }
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLongLine);
 
   }
 
   private void viewDay(ToDoList toDoList) {
-    String line = "----------------------------------";
     LocalDate findDate = Prompt.inputDate("조회일(yyyy-MM-dd)?");
-    System.out.println(line);
+    System.out.println(css.boldLine);
     Object obj = arr.getToDoList(findDate);
-    System.out.println(line);
+    System.out.println(css.boldLine);
     ToDoList toDo = (ToDoList) obj;
     if (toDo != null) {
       System.out.printf("조 회 일 : %s\n", findDate);
-      System.out.printf("%s노 지 각 :  %s%s\n", (toDo.isLate() ? "\033[94m" : "\033[31m"),
-          (toDo.isLate() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s노 졸 음 :  %s%s\n", (toDo.isSleep() ? "\033[94m" : "\033[31m"),
-          (toDo.isSleep() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s복    습 :  %s%s\n", (toDo.isStudy() ? "\033[94m" : "\033[31m"),
-          (toDo.isStudy() ? "완료" : "실패"), "\033[0m");
-      System.out.printf("%s야    자 :  %s%s\n", (toDo.isNight() ? "\033[94m" : "\033[31m"),
-          (toDo.isNight() ? "완료" : "실패"), "\033[0m");
-      System.out.println(line);
+      System.out.printf("%s노 지 각 :  %s%s\n", (toDo.isLate() ? css.boldBlueAnsi : css.boldRedAnsi),
+          (toDo.isLate() ? "완료" : "실패"), css.resetAnsi);
+      System.out.printf("%s노 졸 음 :  %s%s\n", (toDo.isSleep() ? css.boldBlueAnsi : css.boldRedAnsi),
+          (toDo.isSleep() ? "완료" : "실패"), css.resetAnsi);
+      System.out.printf("%s복    습 :  %s%s\n", (toDo.isStudy() ? css.boldBlueAnsi : css.boldRedAnsi),
+          (toDo.isStudy() ? "완료" : "실패"), css.resetAnsi);
+      System.out.printf("%s야    자 :  %s%s\n", (toDo.isNight() ? css.boldBlueAnsi : css.boldRedAnsi),
+          (toDo.isNight() ? "완료" : "실패"), css.resetAnsi);
+      System.out.println(css.boldLine);
       System.out.printf("Today : %4.1f%%  \n", toDo.getTodayComplete());
       System.out.printf("Total : %4.1f%%  \n", toDo.getTotalComplete());
 
     } else {
       System.out.println("해당 날짜에는 공부를 안햇습니다.");
     }
-    System.out.println(line);
+    System.out.println(css.boldLine);
 
 
   }

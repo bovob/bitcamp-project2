@@ -3,19 +3,14 @@ package bitcamp.project2;
 import bitcamp.project2.Prompt.Prompt;
 import bitcamp.project2.command.*;
 import bitcamp.project2.util.ArrayList;
+import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 import java.time.LocalDate;
 
 public class App {
-  //ANSI SET
-  static final String dotCode = "\u25AE";
-  static final String redAnsi = "\033[31m";
-  static final String resetAnsi = "\033[0m";
-  static final String blueAnsi = "\033[94m";
-  static final String boldAnsi = "\033[1m";
-  static final String line = "----------------------------------";
+  static CSS css = new CSS();
   public static ArrayList arrList = new ArrayList();
   public static String[][] subMenus = {{"노지각", "노졸음", "복습", "야자"}, // 과업완료하기
       {"지각방지", "졸음방지", "복습했다치기", "야자출튀"}, // 아이템사용
@@ -46,19 +41,19 @@ public class App {
   }
 
   public static void printTodayDoitList(ToDoList toDoList) {
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + "오늘 할일" + resetAnsi);
+    System.out.println(css.boldLine);
+    System.out.println(css.boldAnsi + "오늘 할일" + css.resetAnsi);
     System.out.printf("노 지 각 :  %s\n", toDoAnsi(toDoList.isLate()));
     System.out.printf("노 졸 음 :  %s\n", toDoAnsi(toDoList.isSleep()));
     System.out.printf("복    습 :  %s\n", toDoAnsi(toDoList.isStudy()));
     System.out.printf("야    자 :  %s\n", toDoAnsi(toDoList.isNight()));
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
   }
 
   public static String toDoAnsi(Boolean bool) {
     return bool ?
-        String.format("%s%s%s", blueAnsi, "완료", resetAnsi) :
-        String.format("%s%s%s", redAnsi, "미완", resetAnsi);
+        String.format("%s%s%s", css.boldBlueAnsi, "완료", css.resetAnsi) :
+        String.format("%s%s%s", css.boldRedAnsi, "미완", css.resetAnsi);
   }
 
   void printSubMenu(String menuTitle, String[] menus) {
@@ -75,8 +70,8 @@ public class App {
 
   void printMainMenu() {
     String appTitle = "      [스파르타 공부법]";
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
+    System.out.println(css.boldLine);
+    System.out.println(css.boldAnsi + appTitle + css.resetAnsi);
     App.printTodayDoitList(toDoList);
     System.out.println(toDoList.getDate());
     System.out.printf("Today : %4.1f%%  ", toDoList.getTodayComplete());
@@ -84,17 +79,17 @@ public class App {
     toDoList.setTotalComplete(arrList.getAverage());
     System.out.printf("Total : %4.1f%%  ", toDoList.getTotalComplete());
     printGraph(toDoList.getTotalComplete(), "total");
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
 
     // 오늘 할일 메소드 출력
     for (int i = 0; i < mainMenus.length; i++) {
       if (mainMenus[i].equals("포기하기")) {
-        System.out.printf("%s%d. %s%s\n", (boldAnsi + redAnsi), (i + 1), mainMenus[i], resetAnsi);
+        System.out.printf("%s%d. %s%s\n", (css.boldRedAnsi), (i + 1), mainMenus[i], css.resetAnsi);
       } else {
         System.out.printf("%d. %s\n", (i + 1), mainMenus[i]);
       }
     }
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
   }
 
   void execute() {
@@ -177,12 +172,12 @@ public class App {
     switch (day) {
       case "today":
         for (int i = 0; i < filledLength; i++) {
-          System.out.printf("%s%s%s", blueAnsi, dotCode, resetAnsi);
+          System.out.printf("%s%s%s", css.blueAnsi, css.dotCode, css.resetAnsi);
         }
         break;
       case "total":
         for (int i = 0; i < filledLength; i++) {
-          System.out.printf("%s%s%s", redAnsi, dotCode, resetAnsi);
+          System.out.printf("%s%s%s", css.redAnsi, css.dotCode, css.resetAnsi);
         }
         break;
     }

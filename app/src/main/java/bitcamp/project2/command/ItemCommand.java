@@ -1,53 +1,33 @@
 package bitcamp.project2.command;
 
-import bitcamp.project2.App;
+import bitcamp.project2.vo.CSS;
 import bitcamp.project2.vo.Items;
 import bitcamp.project2.vo.ToDoList;
 
 public class ItemCommand {
 
   private static Items items;
-  //ANSI SET
-  public String redAnsi = "\033[31m";
-  public String resetAnsi = "\033[0m";
-  public String blueAnsi = "\033[94m";
-  public String boldAnsi = "\033[1m";
-  public String yellowAnsi = "\033[93m";
-  String line = "----------------------------------";
-  private App App;
+  CSS css = new CSS();
 
   public ItemCommand(Items items) {
     ItemCommand.items = items;
   }
 
-  // //아이템 리스트 받기
-  //public void makeItemMenuList(){
-  //    String[] itemMenuList = new String[App.subMenus[1].length];
-  //
-  //    for(int i = 0; i < App.subMenus[1].length; i++){
-  //        itemMenuList[i] = App.subMenus[1][i];
-  //    }
-  //}
-
   public void printItemMenus(String menuTitle, String[] menus) {
-    String boldAnsi = "\033[1m";
-    String resetAnsi = "\033[0m";
     String appTitle = "             [아이템]";
-    System.out.println(boldAnsi + line + resetAnsi);
-    System.out.println(boldAnsi + appTitle + resetAnsi);
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
+    System.out.println(css.boldAnsi + appTitle + css.resetAnsi);
+    System.out.println(css.boldLine);
     if (menuTitle.equals("상점가기")) {
       ShopCommand.printShopInventory();
 
-      System.out.println(boldAnsi + line + resetAnsi);
+      System.out.println(css.boldLine);
     }
     printItemInventory();
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
     System.out.println("9. 이전");
-    System.out.println(boldAnsi + line + resetAnsi);
+    System.out.println(css.boldLine);
   }
-
-
   // 메뉴실행
   public void executeItemCommand(String subTitle, ToDoList toDoList) {
 
@@ -65,7 +45,6 @@ public class ItemCommand {
         useNightCoupon(subTitle, toDoList);
         break;
     }
-
   }
 
   // 아이템(쿠폰)사용
@@ -107,10 +86,7 @@ public class ItemCommand {
 
   // 아이템체크
   public void checkItem(String subTitle, ToDoList toDoList) {
-    String blueAnsi = "\033[94m";
-    String boldAnsi = "\033[1m";
-    String resetAnsi = "\033[0m";
-    String ansiSubTitle = (blueAnsi + boldAnsi + subTitle + resetAnsi);
+    String ansiSubTitle = (css.boldAnsi + subTitle + css.resetAnsi);
 
     switch (subTitle) {
       case "지각방지":
@@ -163,22 +139,22 @@ public class ItemCommand {
     System.out.printf("2.졸음방지.......%4d 개\n", items.getSleepCoupon());
     System.out.printf("3.복습했다치기...%4d 개\n", items.getStudyCoupon());
     System.out.printf("4.야자출튀.......%4d 개\n", items.getNightCoupon());
-    System.out.println(line);
+    System.out.println(css.boldLine);
     printGold();
   }
 
   // 골드
   public void printGold() {
-    String goldString = (boldAnsi + yellowAnsi + items.getGold() + resetAnsi);
+    String goldString = (css.boldYellowAnsi + items.getGold() + css.resetAnsi);
     System.out.printf("현재 보유골드는 [ %s ] 입니다. \n", goldString);
   }
 
   // 현재할일현황 변경
   public void printItemList(ToDoList toDoList) {
-    System.out.println(line);
+    System.out.println(css.boldLine);
     bitcamp.project2.App.printTodayDoitList(toDoList);
-    System.out.println(line);
+    System.out.println(css.boldLine);
     printItemInventory();
-    System.out.println(line);
+    System.out.println(css.boldLine);
   }
 }
