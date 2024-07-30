@@ -1,33 +1,79 @@
-# bitcamp-project2
-비트캠프 14기 2번째 프로젝트
-=============
-# ToDo List 만들기
-=============
-# Main 기능(CRUD)
--------------
-## 1. 등록
-    >### 일정등록
-    >    * 제목
-    >    * 날짜
-    >    * 메모
-    >    * 태그
-    >    * 중요도
-    >    * 완료여부
-    >    - 반복등록
+## 👨‍🏫 To DO List - 스파르타 공부법 <a name = "role"></a>
++ 네이버 클라우드 부트캠프 수업 중 팀 프로젝트로 진행한 토이 프로젝트<br>
++ 게임 방식으로 적용한 To Do List 
 
-## 2. 조회
-    >### 금주조회
-    >   * 요일
-    >   * 날짜
-    >   * 제목
-    >   * 완료여부
+##  프로젝트 소개
+- 매일 수업을 충실히 듣고 복습 상황을 체크하여 당일 해야 할 일들을 관리 해주는 프로그램
 
-    >### 상세조회
-                
-## 3. 변경
-    >### 일정변경
+## ⏲️ 개발 기간 
+- 2024.07.01(월) ~ 2024.07.07(금)
+- 아이디어 노트 작성
 
-## 4. 삭제
-    >### 일정삭제
-    
+## 💻 개발환경
+### Language
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
+### IDE
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+
+## 📝 [목차](#index) <a name = "index"></a>
+
+- [아키텍처](#structure)
+- [주요기능](#functions)
+- [결과](#outputs)
+
+## 📈 아키텍처 <a name = "structure"> </a>
+![structure](https://github.com/kknaks/bitcamp-project2/blob/main/structure.jpg?raw=true)
+
+## 📌 주요 기능 <a name = "functions"> </a>
+- 메인 UI
+  - 오늘할일 : 원활한 수업 진행 및 복습을 위해 반드시 수행해야 하는 4가지 항목
+  - 진행상황 : 당일 날짜와 당일 달성률 및 전체 누적 달성률
+  - CURD : 1 ~ 6까지 메뉴 선택 후 결과값 입출력
+  - 누적달성률 20%미만 시 프로그램 종료
+
+
+- 과업완료하기 
+  - 각 번호를 선택 하면, 당일 할일을 true값으로 리턴
+  - 리턴 받은 논리값을 toDoList에 저장
+  - 메인 UI로 돌아오면 오늘 할일의 표시값 변경
+
+- 아이템사용
+   - 각 할일을 변제해주는 아이템 사용
+   - 아이템 사용 시 해당 할일에 대한 논리값 판별
+   - 논리값이 true이면 아이템 미사용
+   - 논리값이 false이면 아이템 사용 후 횟수 차감
+
+- 상점가기
+   - 각 할일을 변제해주는 아이템을 구매
+   - 아이템 객체에 골드 값과 해당 아이템의 가격 비교 후 구매
+   - 구매후 골드 차감, 아이템 갯수 증가
+
+- 업적조회
+   - 당일 날짜 값을 가지고 그 주 첫째날을 계산
+   - 일주일 날짜, 당일 달성률, 누적 달성률을 출력
+
+- 일과종료
+    - 일과 종료 시 저장된 ToDoList 객체를 ArrayList에 추가
+    - 새로운 ToDoList 객체생성 및 날짜 조정
+      
+## 📌 결과 <a name = "outputs"> </a>
+- 과업완료하기 
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/78bd6f09-34d1-4555-8443-cc23b5e674e9" width="500", height="300">
+</p>
+
+- 아이템사용, 상점가기
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/e7387cc3-0131-4dd6-9657-98cbb95bda86"width="500", height="300">
+</p>
+
+- 업적조회
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/e7387cc3-0131-4dd6-9657-98cbb95bda86"width="500", height="300">
+</p>
+
+- 일과종료
+<p align="center">
+<img src="https://github.com/bovob/bitcamp-project2/assets/118641096/7da7a908-55f6-45f3-87cf-07c9de0ac698"width="500", height="300">
+</p>
